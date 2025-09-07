@@ -51,3 +51,16 @@ yarn-error.log*
 *.pem
 *.tsbuildinfo
 next-env.d.ts
+
+# Large files and SDKs
+google-cloud-sdk/
+google-cloud-cli-*.tar.gz
+*.tar.gz
+
+# Flutter/Dart build files
+.dart_tool/
+*.dill
+
+# Python libraries
+*.so
+*.a
