@@ -115,11 +115,7 @@ export default function TreatmentsPage() {
               >
                 {isRTL ? "خطط العلاج" : "Treatment Plans"}
               </h1>
-              <p
-                className={`text-gray-600 ${
-                  isRTL ? "font-cairo" : ""
-                }`}
-              >
+              <p className={`text-gray-600 ${isRTL ? "font-cairo" : ""}`}>
                 {isRTL
                   ? "إدارة خطط العلاج المخصصة الخاصة بك"
                   : "Manage your personalized treatment plans"}
@@ -142,9 +138,7 @@ export default function TreatmentsPage() {
                   d="M12 4v16m8-8H4"
                 />
               </svg>
-              <span>
-                {isRTL ? "خطة علاج جديدة" : "New Treatment Plan"}
-              </span>
+              <span>{isRTL ? "خطة علاج جديدة" : "New Treatment Plan"}</span>
             </button>
           </div>
 
@@ -193,7 +187,8 @@ export default function TreatmentsPage() {
                     {isRTL ? "نشط" : "Active"}
                   </p>
                   <p className="text-3xl font-semibold text-gray-900">
-                    {treatments?.filter((t) => t.status === "active").length || 0}
+                    {treatments?.filter((t) => t.status === "active").length ||
+                      0}
                   </p>
                 </div>
                 <div className="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center">
@@ -225,7 +220,8 @@ export default function TreatmentsPage() {
                     {isRTL ? "مكتمل" : "Completed"}
                   </p>
                   <p className="text-3xl font-semibold text-gray-900">
-                    {treatments?.filter((t) => t.status === "completed").length || 0}
+                    {treatments?.filter((t) => t.status === "completed")
+                      .length || 0}
                   </p>
                 </div>
                 <div className="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center">
@@ -259,10 +255,13 @@ export default function TreatmentsPage() {
                   <p className="text-3xl font-semibold text-gray-900">
                     {treatments && treatments.length > 0
                       ? Math.round(
-                          treatments.reduce((acc: number, t) => acc + (t.progress || 0), 0) /
-                            treatments.length
+                          treatments.reduce(
+                            (acc: number, t) => acc + (t.progress || 0),
+                            0
+                          ) / treatments.length
                         )
-                      : 0}%
+                      : 0}
+                    %
                   </p>
                 </div>
                 <div className="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center">
@@ -325,7 +324,10 @@ export default function TreatmentsPage() {
                               {treatment.name}
                             </h3>
                             <p className="text-sm text-gray-600">
-                              {isRTL ? "بدأ في" : "Started"} {formatDate(treatment.startDate || treatment.createdAt)}
+                              {isRTL ? "بدأ في" : "Started"}{" "}
+                              {formatDate(
+                                treatment.startDate || treatment.createdAt
+                              )}
                             </p>
                           </div>
                         </div>
@@ -382,7 +384,9 @@ export default function TreatmentsPage() {
                           <span className="font-medium">
                             {isRTL ? "المدة:" : "Duration:"}
                           </span>{" "}
-                          {treatment.durationWeeks ? `${treatment.durationWeeks} weeks` : "Ongoing"}
+                          {treatment.durationWeeks
+                            ? `${treatment.durationWeeks} weeks`
+                            : "Ongoing"}
                         </div>
                       </div>
 
@@ -391,7 +395,9 @@ export default function TreatmentsPage() {
                         {treatment.status === "active" && (
                           <button
                             onClick={() =>
-                              updateTreatment(treatment.id, { status: "paused" })
+                              updateTreatment(treatment.id, {
+                                status: "paused",
+                              })
                             }
                             className="px-4 py-2 text-yellow-600 border border-yellow-300 rounded-lg hover:bg-yellow-50 transition-colors"
                           >
@@ -401,7 +407,9 @@ export default function TreatmentsPage() {
                         {treatment.status === "paused" && (
                           <button
                             onClick={() =>
-                              updateTreatment(treatment.id, { status: "active" })
+                              updateTreatment(treatment.id, {
+                                status: "active",
+                              })
                             }
                             className="px-4 py-2 text-green-600 border border-green-300 rounded-lg hover:bg-green-50 transition-colors"
                           >
@@ -410,7 +418,9 @@ export default function TreatmentsPage() {
                         )}
                         <button
                           onClick={() =>
-                            updateTreatment(treatment.id, { status: "completed" })
+                            updateTreatment(treatment.id, {
+                              status: "completed",
+                            })
                           }
                           className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                         >
@@ -422,15 +432,15 @@ export default function TreatmentsPage() {
                 </div>
               ) : (
                 <EmptyState
-                  title={
-                    isRTL ? "لا توجد خطط علاج" : "No Treatment Plans"
-                  }
+                  title={isRTL ? "لا توجد خطط علاج" : "No Treatment Plans"}
                   description={
                     isRTL
                       ? "لم يتم إنشاء أي خطط علاج بعد. ابدأ بإنشاء خطة علاج مخصصة."
                       : "You haven't created any treatment plans yet. Start by creating a personalized treatment plan."
                   }
-                  actionLabel={isRTL ? "إنشاء خطة علاج" : "Create Treatment Plan"}
+                  actionLabel={
+                    isRTL ? "إنشاء خطة علاج" : "Create Treatment Plan"
+                  }
                   onAction={() => {}}
                   icon={
                     <svg
@@ -463,7 +473,7 @@ export default function TreatmentsPage() {
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Link
-                href={`/${locale}/room`}
+                href={`/${locale}/skin-analysis`}
                 className="flex items-center p-4 bg-white rounded-xl hover:shadow-md transition-shadow"
               >
                 <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
@@ -494,7 +504,9 @@ export default function TreatmentsPage() {
                       isRTL ? "font-cairo" : ""
                     }`}
                   >
-                    {isRTL ? "احصل على توصيات مخصصة" : "Get personalized recommendations"}
+                    {isRTL
+                      ? "احصل على توصيات مخصصة"
+                      : "Get personalized recommendations"}
                   </p>
                 </div>
               </Link>
@@ -531,7 +543,9 @@ export default function TreatmentsPage() {
                       isRTL ? "font-cairo" : ""
                     }`}
                   >
-                    {isRTL ? "تحليل شامل للبشرة" : "Comprehensive skin analysis"}
+                    {isRTL
+                      ? "تحليل شامل للبشرة"
+                      : "Comprehensive skin analysis"}
                   </p>
                 </div>
               </Link>
@@ -579,6 +593,3 @@ export default function TreatmentsPage() {
     </DashboardLayout>
   );
 }
-
-
-

@@ -27,11 +27,11 @@ export async function generateMetadata({
   const { locale } = await params;
 
   return {
-    title: "Skinior - Professional Skincare Solutions",
+    title: "Sawavo - Professional Skincare Solutions",
     description:
       "Advanced AI-powered skincare analysis and personalized recommendations",
     metadataBase: new URL(
-      process.env.NEXT_PUBLIC_SITE_URL || "https://skinior.com"
+      process.env.NEXT_PUBLIC_SITE_URL || "https://Sawavo.com"
     ),
     alternates: {
       canonical: `/${locale}`,
@@ -41,7 +41,7 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      title: "Skinior - Professional Skincare Solutions",
+      title: "Sawavo - Professional Skincare Solutions",
       description:
         "Advanced AI-powered skincare analysis and personalized recommendations",
       locale: locale,
@@ -99,8 +99,8 @@ export default async function LocaleLayout({
         </Suspense>
 
         {/* Critical resource hints for performance */}
-        <link rel="dns-prefetch" href="https://skinior.com" />
-        <link rel="preconnect" href="https://skinior.com" crossOrigin="" />
+        <link rel="dns-prefetch" href="https://Sawavo.com" />
+        <link rel="preconnect" href="https://Sawavo.com" crossOrigin="" />
 
         {/* Performance optimizations */}
         <meta name="format-detection" content="telephone=no" />
@@ -132,7 +132,7 @@ export default async function LocaleLayout({
         </NextIntlClientProvider>
 
         {/* Ensure a body-level container exists so the floating widget cannot be nested in other layout nodes */}
-        <div id="skinior-floating-widget" />
+        <div id="Sawavo-floating-widget" />
         <FloatingChatWidget />
       </body>
     </html>

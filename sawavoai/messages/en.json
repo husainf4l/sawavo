@@ -1,5 +1,5 @@
 {
-  "greeting": "Hello! Welcome to Skinior.",
+  "greeting": "Hello! Welcome to Sawavo.",
   "description": "Experience the future of skincare with our proprietary AI technology that delivers clinical-grade skin analysis, paired with personalized expert consultations for optimal beauty results.",
   "navigation": {
     "home": "Home",
@@ -43,7 +43,7 @@
     "contactDesc": "Connect instantly with our beauty experts for live video consultations, get immediate answers, and receive your customized skincare regimen."
   },
   "footer": {
-    "copyright": "© 2025 Skinior. All rights reserved.",
+    "copyright": "© 2025 Sawavo. All rights reserved.",
     "privacy": "Privacy Policy",
     "terms": "Terms of Service"
   },
@@ -251,7 +251,7 @@
     "hero": {
       "title": "Revolutionizing Beauty Through AI Innovation",
       "subtitle": "Where cutting-edge artificial intelligence meets dermatological expertise to transform your skincare journey",
-      "description": "At Skinior, we believe everyone deserves personalized, scientific-backed skincare solutions. Our mission is to democratize professional beauty consultations through revolutionary AI technology."
+      "description": "At Sawavo, we believe everyone deserves personalized, scientific-backed skincare solutions. Our mission is to democratize professional beauty consultations through revolutionary AI technology."
     },
     "mission": {
       "title": "Our Mission",
@@ -259,7 +259,7 @@
     },
     "story": {
       "title": "Our Story",
-      "content": "Founded by a team of dermatologists, AI researchers, and beauty experts, Skinior was born from the vision of bridging the gap between advanced technology and personalized skincare. We recognized that millions of people struggle with skin concerns but lack access to professional guidance.",
+      "content": "Founded by a team of dermatologists, AI researchers, and beauty experts, Sawavo was born from the vision of bridging the gap between advanced technology and personalized skincare. We recognized that millions of people struggle with skin concerns but lack access to professional guidance.",
       "highlight": "Our breakthrough came when we developed an AI system that could analyze skin with the same accuracy as clinical dermatological assessments, making expert-level analysis available instantly to anyone with a smartphone."
     },
     "technology": {
@@ -360,45 +360,6 @@
     "concerns": "Skin Concerns",
     "priceRange": "Price Range",
     "priceRangeHint": "Range: ${min} - ${max}"
-  },
-  "room": {
-    "title": "AI Skin Analysis",
-    "subtitle": "Get comprehensive and accurate skin analysis using the latest AI technology with personalized care routine recommendations",
-    "brandName": "Skinior",
-    "deviceCheck": "Device Check",
-    "camera": "Camera",
-    "microphone": "Microphone",
-    "testing": "Testing...",
-    "ready": "Ready",
-    "blocked": "Blocked",
-    "offline": "Offline",
-    "connecting": "Connecting...",
-    "connectingToServer": "Connecting to server",
-    "connectionError": "Connection Error",
-    "tryAgain": "Try Again",
-    "termsAgreement": "I agree to the terms and conditions and privacy policy for skin analysis and understand that data will be used for analysis purposes only",
-    "startAnalysisSession": "Start Analysis Session",
-    "starting": "Starting...",
-    "secureEncrypted": "Secure & Encrypted",
-    "sessionSetup": "Session Setup",
-    "connectionLost": "Connection lost. Please refresh the page.",
-    "smartAnalysisRoom": "Smart Analysis Room",
-    "backButton": "Back",
-    "aiPoweredSkinAnalysis": "AI-Powered Skin Analysis",
-    "creating": "Creating...",
-    "retryDevices": "Retry",
-    "accurateAnalysis": "Accurate Analysis",
-    "accurateAnalysisDesc": "Comprehensive skin analysis using AI technology",
-    "instantResults": "Instant Results",
-    "instantResultsDesc": "Get results and recommendations in seconds",
-    "personalizedTips": "Personalized Tips",
-    "personalizedTipsDesc": "Customized advice for your skin type and condition",
-    "pleaseAcceptTerms": "Please accept the terms and conditions",
-    "pleaseAllowAccess": "Please allow camera and microphone access",
-    "failedToCreateRoom": "Failed to create room",
-    "redirecting": "Redirecting...",
-    "termsAndConditions": "Terms and Conditions",
-    "privacyPolicy": "Privacy Policy"
   },
   "shopByCategory": {
     "title": "Shop by Category",

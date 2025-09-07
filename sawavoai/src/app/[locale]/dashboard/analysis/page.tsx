@@ -170,7 +170,7 @@ export default function AnalysisPage() {
               </p>
             </div>
             <Link
-              href={`/${locale}/room-test`}
+              href={`/${locale}/skin-analysis`}
               className={`bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-medium transition-colors ${
                 isRTL ? "font-cairo" : ""
               }`}

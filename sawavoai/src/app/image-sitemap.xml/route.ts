@@ -1,7 +1,7 @@
 import { productsService } from '@/services/productsService';
 import { ProductImage } from '@/types/product';
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://skinior.com';
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://Sawavo.com';
 
 export async function GET() {
   try {
@@ -47,13 +47,13 @@ export async function GET() {
     const staticImages = [
       {
         url: '/hero/hero1.webp',
-        caption: 'Skinior AI Skincare Analysis',
+        caption: 'Sawavo AI Skincare Analysis',
         title: 'Advanced AI-Powered Skincare Solutions'
       },
       {
-        url: '/logos/skinior-logo-black.png', 
-        caption: 'Skinior Logo',
-        title: 'Skinior Brand Logo'
+        url: '/logos/Sawavo-black.png',
+        caption: 'Sawavo Logo',
+        title: 'Sawavo Brand Logo'
       }
     ];
 

@@ -26,7 +26,7 @@ export async function generateMetadata({
 
     if (!product) {
       return {
-        title: "Product Not Found | Skinior",
+        title: "Product Not Found | Sawavo",
         description: "The requested product could not be found.",
       };
     }
@@ -43,12 +43,12 @@ export async function generateMetadata({
 
     const title = `${productName}${
       brandName ? ` | ${brandName}` : ""
-    } | Skinior`;
+    } | Sawavo`;
     const description =
       productDescription ||
-      `${productName} - Premium skincare product from Skinior`;
+      `${productName} - Premium skincare product from Sawavo`;
 
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://skinior.com";
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://Sawavo.com";
     // Use slug for SEO-friendly URLs in metadata
     const productUrl = `${baseUrl}/${locale}/products/${product.slug}`;
     const productImage =
@@ -84,7 +84,7 @@ export async function generateMetadata({
         ],
         type: "website",
         locale: locale === "ar" ? "ar_SA" : "en_US",
-        siteName: "Skinior",
+        siteName: "Sawavo",
       },
 
       twitter: {
@@ -92,7 +92,7 @@ export async function generateMetadata({
         title: productName,
         description,
         images: [productImage],
-        site: "@skinior",
+        site: "@Sawavo",
       },
 
       alternates: {
@@ -119,15 +119,15 @@ export async function generateMetadata({
         "product:price:amount": product.price?.toString() || "0",
         "product:price:currency": "JOD",
         "product:availability": product.isInStock ? "in stock" : "out of stock",
-        "product:brand": brandName || "Skinior",
+        "product:brand": brandName || "Sawavo",
         "product:category": categoryName || "Skincare",
       },
     };
   } catch (error) {
     console.error("Error generating product metadata:", error);
     return {
-      title: "Product | Skinior",
-      description: "Premium skincare products from Skinior",
+      title: "Product | Sawavo",
+      description: "Premium skincare products from Sawavo",
     };
   }
 }

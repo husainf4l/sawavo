@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { LoginCredentials, AuthResponse, ApiResponse, User } from '../interfaces/auth.interface';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly apiUrl = 'http://localhost:4008/api/auth';
+  private readonly apiUrl = environment.apiBaseUrl + '/auth';
   private readonly tokenKey = 'adminToken';
   private readonly userKey = 'adminUser';
   

@@ -8,6 +8,7 @@ import {
   UpdateProductDto, 
   ProductListResponse 
 } from '../interfaces/product.interface';
+import { environment } from '../../environments/environment';
 
 export interface ProductQueryParams {
   page?: number;
@@ -20,6 +21,7 @@ export interface ProductQueryParams {
   skinType?: string;
   concerns?: string; // comma-separated values
   isFeatured?: boolean;
+  isTodayDeal?: boolean;
   isNew?: boolean;
   isActive?: boolean;
   onSale?: boolean;
@@ -68,8 +70,8 @@ interface PaginatedProductResponse {
   providedIn: 'root'
 })
 export class ProductService {
-  private readonly apiUrl = 'https://skinior.com/api/products';
-  private readonly adminApiUrl = 'https://skinior.com/api/admin/products';
+  private readonly apiUrl = environment.apiBaseUrl + '/products';
+  private readonly adminApiUrl = environment.apiBaseUrl + '/admin/products';
   private productsSubject = new BehaviorSubject<Product[]>([]);
   public products$ = this.productsSubject.asObservable();
 

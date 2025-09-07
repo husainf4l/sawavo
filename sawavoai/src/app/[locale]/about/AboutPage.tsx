@@ -26,16 +26,16 @@ const AboutPage = () => {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Skinior",
+    name: "Sawavo",
     description: t("hero.description"),
-    url: `https://skinior.com/${locale}/about`,
-    logo: `https://skinior.com/logos/skinior-logo-${
+    url: `https://Sawavo.com/${locale}/about`,
+    logo: `https://Sawavo.com/logos/Sawavo-logo-${
       locale === "ar" ? "black-ar" : "black"
     }.png`,
     sameAs: [
-      "https://twitter.com/skinior",
-      "https://linkedin.com/company/skinior",
-      "https://instagram.com/skinior",
+      "https://twitter.com/Sawavo",
+      "https://linkedin.com/company/Sawavo",
+      "https://instagram.com/Sawavo",
     ],
     foundingDate: "2023",
     numberOfEmployees: "25+",
@@ -56,7 +56,7 @@ const AboutPage = () => {
       description: t("technology.description"),
       provider: {
         "@type": "Organization",
-        name: "Skinior",
+        name: "Sawavo",
       },
     },
   };

@@ -25,7 +25,7 @@ body {
 }
 
 /* Essential floating widget positioning */
-#skinior-floating-widget {
+#Sawavo-floating-widget {
   position: fixed !important;
   bottom: 24px !important;
   right: 24px !important;

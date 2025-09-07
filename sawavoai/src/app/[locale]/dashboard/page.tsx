@@ -454,10 +454,10 @@ export default function DashboardPage() {
                         : "Recent AI Consultations"}
                     </h2>
                     <Link
-                      href={`/${locale}/room`}
+                      href={`/${locale}/skin-analysis`}
                       className="text-blue-600 text-sm font-medium hover:text-blue-700 transition-colors"
                     >
-                      {isRTL ? "استشارة جديدة" : "New Consultation"}
+                      {isRTL ? "تحليل جديد" : "New Analysis"}
                     </Link>
                   </div>
                 </div>
@@ -535,7 +535,7 @@ export default function DashboardPage() {
                   )}
 
                   <Link
-                    href={`/${locale}/room`}
+                    href={`/${locale}/skin-analysis`}
                     className="flex items-center justify-center p-4 border-2 border-dashed border-gray-200 rounded-xl hover:border-purple-300 hover:bg-purple-50 transition-colors group"
                   >
                     <div className="text-center">
@@ -652,7 +652,7 @@ export default function DashboardPage() {
                 </h3>
                 <div className="space-y-3">
                   <Link
-                    href={`/${locale}/room`}
+                    href={`/${locale}/skin-analysis`}
                     className="flex items-center p-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl hover:from-blue-100 hover:to-purple-100 transition-colors group border border-blue-100"
                   >
                     <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-200">

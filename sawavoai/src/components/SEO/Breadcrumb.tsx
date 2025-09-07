@@ -16,21 +16,21 @@ interface BreadcrumbProps {
 export default function Breadcrumb({ items, className = "" }: BreadcrumbProps) {
   const locale = useLocale();
   const isRTL = locale === "ar";
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://skinior.com";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://Sawavo.com";
 
   // Generate structured data for breadcrumbs
   const generateBreadcrumbStructuredData = () => {
     const itemListElement = items.map((item, index) => ({
       "@type": "ListItem",
-      "position": index + 1,
-      "name": item.name,
-      ...(item.href && { "item": `${baseUrl}${item.href}` })
+      position: index + 1,
+      name: item.name,
+      ...(item.href && { item: `${baseUrl}${item.href}` }),
     }));
 
     return {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
-      "itemListElement": itemListElement
+      itemListElement: itemListElement,
     };
   };
 
@@ -45,17 +45,23 @@ export default function Breadcrumb({ items, className = "" }: BreadcrumbProps) {
           __html: JSON.stringify(generateBreadcrumbStructuredData()),
         }}
       />
-      
-      <nav 
+
+      <nav
         className={`flex ${isRTL ? "flex-row-reverse" : ""} ${className}`}
         aria-label={isRTL ? "مسار التنقل" : "Breadcrumb"}
       >
-        <ol className={`flex items-center space-x-2 ${isRTL ? "space-x-reverse" : ""}`}>
+        <ol
+          className={`flex items-center space-x-2 ${
+            isRTL ? "space-x-reverse" : ""
+          }`}
+        >
           {items.map((item, index) => (
             <li key={index} className="flex items-center">
               {index > 0 && (
                 <svg
-                  className={`w-4 h-4 text-gray-400 mx-2 ${isRTL ? "rotate-180" : ""}`}
+                  className={`w-4 h-4 text-gray-400 mx-2 ${
+                    isRTL ? "rotate-180" : ""
+                  }`}
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   aria-hidden="true"
@@ -67,7 +73,7 @@ export default function Breadcrumb({ items, className = "" }: BreadcrumbProps) {
                   />
                 </svg>
               )}
-              
+
               {item.href && index < items.length - 1 ? (
                 <Link
                   href={item.href}

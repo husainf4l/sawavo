@@ -15,12 +15,12 @@ const FloatingChatWidget: React.FC = () => {
 
     // Reuse existing floating container if present (prevents duplicates)
     let container = document.getElementById(
-      "skinior-floating-widget"
+      "Sawavo-floating-widget"
     ) as HTMLDivElement | null;
 
     if (!container) {
       container = document.createElement("div");
-      container.id = "skinior-floating-widget";
+      container.id = "Sawavo-floating-widget";
       container.style.cssText = `
         position: fixed !important;
         bottom: 24px !important;
@@ -49,7 +49,7 @@ const FloatingChatWidget: React.FC = () => {
       if (typeof window === "undefined") return;
 
       try {
-        const existing = document.getElementById("skinior-floating-widget");
+        const existing = document.getElementById("Sawavo-floating-widget");
         if (existing && existing === portalRef.current) {
           // Check if element is still in DOM before removing
           if (document.contains(existing)) {

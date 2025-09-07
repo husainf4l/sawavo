@@ -60,15 +60,14 @@ const TodaysDeals = memo(() => {
           dealsData = responseData;
         }
 
-        // Filter available deals and sort by discount percentage
+        // Filter available deals - show all active deals with images, regardless of discount
         const activeDeals = dealsData
           .filter(
             (deal) =>
               deal.isActive &&
               deal.isInStock &&
               deal.images.length > 0 && // Only include deals with images
-              deal.images[0]?.url && // Ensure the first image has a valid URL
-              (deal.discountPercentage > 0 || deal.compareAtPrice > deal.price)
+              deal.images[0]?.url // Ensure the first image has a valid URL
           )
           .sort((a, b) => b.discountPercentage - a.discountPercentage);
         setDeals(activeDeals);
@@ -111,7 +110,7 @@ const TodaysDeals = memo(() => {
     >
       {/* Debug UI removed for production */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header - Skinior Style */}
+        {/* Section Header - Sawavo Style */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center justify-center mb-6">
             <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mr-2" />
@@ -140,7 +139,7 @@ const TodaysDeals = memo(() => {
           </p>
         </div>
 
-        {/* Main Deal Carousel - Skinior Style */}
+        {/* Main Deal Carousel - Sawavo Style */}
         <div className="relative overflow-hidden rounded-3xl bg-white/80 backdrop-blur-2xl border border-white/20 shadow-2xl shadow-gray-900/10">
           <div
             className="flex transition-transform duration-500 ease-in-out"
@@ -157,13 +156,13 @@ const TodaysDeals = memo(() => {
                     isRTL ? "lg:grid-flow-col-dense" : ""
                   }`}
                 >
-                  {/* Deal Content - Skinior Style */}
+                  {/* Deal Content - Sawavo Style */}
                   <div
                     className={`flex flex-col justify-center p-8 lg:p-16 ${
                       isRTL ? "lg:order-2" : "order-2 lg:order-1"
                     }`}
                   >
-                    {/* Discount Badge - Skinior Style */}
+                    {/* Discount Badge - Sawavo Style */}
                     <div className="mb-8">
                       <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full text-sm font-medium text-gray-700">
                         <div className="w-1.5 h-1.5 bg-red-500 rounded-full" />
@@ -173,7 +172,7 @@ const TodaysDeals = memo(() => {
                       </div>
                     </div>
 
-                    {/* Deal Title - Skinior Style */}
+                    {/* Deal Title - Sawavo Style */}
                     <h3
                       className={`text-3xl lg:text-4xl font-light text-gray-900 mb-6 leading-tight ${
                         isRTL ? "font-cairo" : ""
@@ -182,7 +181,7 @@ const TodaysDeals = memo(() => {
                       {isRTL ? deal.titleAr || deal.title : deal.title}
                     </h3>
 
-                    {/* Deal Description - Skinior Style */}
+                    {/* Deal Description - Sawavo Style */}
                     <p
                       className={`text-xl text-gray-600 mb-8 leading-relaxed ${
                         isRTL ? "font-cairo" : ""
@@ -223,7 +222,7 @@ const TodaysDeals = memo(() => {
                       </div>
                     </div>
 
-                    {/* CTA Button - Skinior Style */}
+                    {/* CTA Button - Sawavo Style */}
                     <div>
                       <button
                         onClick={() =>
@@ -249,7 +248,7 @@ const TodaysDeals = memo(() => {
                     </div>
                   </div>
 
-                  {/* Deal Image - Skinior Style */}
+                  {/* Deal Image - Sawavo Style */}
                   <div
                     className={`relative ${
                       isRTL ? "lg:order-1" : "order-1 lg:order-2"
@@ -273,7 +272,7 @@ const TodaysDeals = memo(() => {
             ))}
           </div>
 
-          {/* Navigation Dots - Skinior Style */}
+          {/* Navigation Dots - Sawavo Style */}
           <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2">
             {deals.map((_, index) => (
               <button
@@ -295,7 +294,7 @@ const TodaysDeals = memo(() => {
             ))}
           </div>
 
-          {/* Navigation Arrows - Skinior Style */}
+          {/* Navigation Arrows - Sawavo Style */}
           <button
             onClick={() => {
               const newIndex =

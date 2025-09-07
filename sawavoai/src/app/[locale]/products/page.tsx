@@ -18,20 +18,20 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const isRTL = locale === "ar";
-  
-  const title = isRTL 
-    ? "منتجات العناية بالبشرة - سكينيور" 
-    : "Skincare Products - Skinior";
-    
+
+  const title = isRTL
+    ? "منتجات العناية بالبشرة - Sawavo"
+    : "Skincare Products - Sawavo";
+
   const description = isRTL
-    ? "اكتشف مجموعتنا الواسعة من منتجات العناية بالبشرة الفاخرة. منتجات طبيعية وفعالة لجميع أنواع البشرة من سكينيور"
-    : "Discover our premium collection of skincare products. Natural and effective formulas for all skin types from Skinior";
-  
+    ? "اكتشف مجموعتنا الواسعة من منتجات العناية بالبشرة الفاخرة. منتجات طبيعية وفعالة لجميع أنواع البشرة من Sawavo"
+    : "Discover our premium collection of skincare products. Natural and effective formulas for all skin types from Sawavo";
+
   const keywords = isRTL
-    ? "منتجات العناية بالبشرة, مستحضرات التجميل, منتجات طبيعية, سكينيور"
+    ? "منتجات العناية بالبشرة, مستحضرات التجميل, منتجات طبيعية, Sawavo"
     : "skincare products, cosmetics, natural products, beauty, anti-aging, moisturizer, cleanser, serum";
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://skinior.com";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://Sawavo.com";
   const productsUrl = `${baseUrl}/${locale}/products`;
 
   return {
@@ -39,7 +39,7 @@ export async function generateMetadata({
     description,
     keywords,
     metadataBase: new URL(baseUrl),
-    
+
     openGraph: {
       title,
       description,
@@ -54,17 +54,17 @@ export async function generateMetadata({
       ],
       type: "website",
       locale: locale === "ar" ? "ar_SA" : "en_US",
-      siteName: "Skinior",
+      siteName: "Sawavo",
     },
-    
+
     twitter: {
       card: "summary_large_image",
       title,
       description,
       images: [`${baseUrl}/hero/hero1.webp`],
-      site: "@skinior",
+      site: "@Sawavo",
     },
-    
+
     alternates: {
       canonical: productsUrl,
       languages: {
@@ -72,7 +72,7 @@ export async function generateMetadata({
         ar: `${baseUrl}/ar/products`,
       },
     },
-    
+
     robots: {
       index: true,
       follow: true,
@@ -100,13 +100,12 @@ export default function ProductsPage({
   return (
     <div className="container mx-auto px-6 py-8">
       <h1 className="text-3xl font-bold mb-6">
-        {locale === 'ar' ? 'المنتجات' : 'Products'}
+        {locale === "ar" ? "المنتجات" : "Products"}
       </h1>
       <p className="text-gray-600">
-        {locale === 'ar' 
-          ? 'استكشف مجموعتنا الكاملة من منتجات العناية بالبشرة'
-          : 'Explore our complete collection of skincare products'
-        }
+        {locale === "ar"
+          ? "استكشف مجموعتنا الكاملة من منتجات العناية بالبشرة"
+          : "Explore our complete collection of skincare products"}
       </p>
     </div>
   );

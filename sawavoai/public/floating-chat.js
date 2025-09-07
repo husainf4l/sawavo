@@ -3,7 +3,7 @@
 //   'use strict';
   
 //   // Ensure we only create one instance
-//   if (window.skiniorChatWidget) {
+//   if (window.SawavoChatWidget) {
 //     return;
 //   }
   
@@ -14,7 +14,7 @@
 //   // Create the floating chat button
 //   function createChatButton() {
 //     const button = document.createElement('button');
-//     button.id = 'skinior-chat-button';
+//     button.id = 'Sawavo-chat-button';
 //     button.innerHTML = `
 //       <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 //         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
@@ -81,7 +81,7 @@
 //   // Create the chat interface
 //   function createChatInterface() {
 //     const container = document.createElement('div');
-//     container.id = 'skinior-chat-interface';
+//     container.id = 'Sawavo-chat-interface';
 //     container.innerHTML = `
 //       <div style="background: white; border-radius: 8px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); width: 384px; height: 500px; display: flex; flex-direction: column;">
 //         <div style="background: #2563eb; color: white; padding: 16px; border-radius: 8px 8px 0 0; display: flex; justify-content: space-between; align-items: center;">
@@ -149,12 +149,12 @@
 //   // Initialize the widget
 //   function init() {
 //     // Remove any existing instances
-//     const existing = document.getElementById('skinior-chat-button');
+//     const existing = document.getElementById('Sawavo-chat-button');
 //     if (existing) {
 //       existing.remove();
 //     }
     
-//     const existingInterface = document.getElementById('skinior-chat-interface');
+//     const existingInterface = document.getElementById('Sawavo-chat-interface');
 //     if (existingInterface) {
 //       existingInterface.remove();
 //     }
@@ -164,7 +164,7 @@
 //     document.body.appendChild(chatButton);
     
 //     // Mark as initialized
-//     window.skiniorChatWidget = true;
+//     window.SawavoChatWidget = true;
 //   }
   
 //   // Initialize when DOM is ready

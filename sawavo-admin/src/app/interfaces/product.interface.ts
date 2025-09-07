@@ -69,6 +69,7 @@ export interface Product {
   isActive?: boolean;
   isFeatured?: boolean;
   isNew?: boolean;
+  isTodayDeal?: boolean;
   
   // Skincare specific fields
   activeIngredients?: string;
@@ -135,6 +136,7 @@ export interface CreateProductDto {
   isActive?: boolean;
   isFeatured?: boolean;
   isNew?: boolean;
+  isTodayDeal?: boolean;
   
   // Skincare specific
   activeIngredients?: string;
@@ -189,6 +191,7 @@ export interface UpdateProductDto {
   isActive?: boolean;
   isFeatured?: boolean;
   isNew?: boolean;
+  isTodayDeal?: boolean;
   
   // Skincare specific
   activeIngredients?: string;

@@ -38,14 +38,17 @@ const Navbar = () => {
   // Close user menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+      if (
+        userMenuRef.current &&
+        !userMenuRef.current.contains(event.target as Node)
+      ) {
         setUserMenuOpen(false);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -60,11 +63,11 @@ const Navbar = () => {
               className="flex-shrink-0 hover:opacity-75 transition-opacity duration-200"
             >
               <Image
-                src={locale === "ar" ? "/logos/skinior-logo-black-ar.png" : "/logos/skinior-logo-black.png"}
-                alt="Skinior"
+                src="/logos/Sawavo-black.png"
+                alt="Sawavo"
                 width={90}
                 height={28}
-                className="h-5 w-auto cursor-pointer"
+                className="h-6 w-auto cursor-pointer"
                 priority
               />
             </Link>
@@ -98,7 +101,11 @@ const Navbar = () => {
                       {getUserFullName(user).charAt(0).toUpperCase()}
                     </span>
                   </div>
-                  <ChevronDownIcon className={`w-3 h-3 transition-transform duration-200 ${userMenuOpen ? 'rotate-180' : ''}`} />
+                  <ChevronDownIcon
+                    className={`w-3 h-3 transition-transform duration-200 ${
+                      userMenuOpen ? "rotate-180" : ""
+                    }`}
+                  />
                 </button>
 
                 {/* User Dropdown Menu */}
@@ -112,7 +119,9 @@ const Navbar = () => {
                       {t("navigation.dashboard")}
                     </Link>
                     <div className="px-4 py-2">
-                      <div className="text-xs text-gray-500 mb-2">{locale === "ar" ? "اللغة" : "Language"}</div>
+                      <div className="text-xs text-gray-500 mb-2">
+                        {locale === "ar" ? "اللغة" : "Language"}
+                      </div>
                       <LanguageSwitcher />
                     </div>
                     <hr className="my-2" />
@@ -220,7 +229,9 @@ const Navbar = () => {
                           {getUserFullName(user).charAt(0)}
                         </span>
                       </div>
-                      <span className="text-sm text-gray-600">{getUserFullName(user)}</span>
+                      <span className="text-sm text-gray-600">
+                        {getUserFullName(user)}
+                      </span>
                     </div>
                     <button
                       onClick={() => {

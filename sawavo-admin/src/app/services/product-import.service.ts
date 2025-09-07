@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 export interface ImportTemplateResponse {
   success: boolean;
@@ -122,7 +123,7 @@ export interface ImportHistoryResponse {
   providedIn: 'root'
 })
 export class ProductImportService {
-  private readonly apiUrl = 'http://localhost:4008/api/admin/products/import';
+  private readonly apiUrl = environment.apiBaseUrl + '/admin/products/import';
 
   constructor(private http: HttpClient) {}
 

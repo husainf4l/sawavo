@@ -9,9 +9,10 @@ interface ResourceHintsProps {
 
 const ResourceHints = memo(({ locale }: ResourceHintsProps) => {
   const pathname = usePathname();
-  
+
   // Only preload hero image on the home page
-  const isHomePage = pathname === `/${locale}` || pathname === '/en' || pathname === '/ar';
+  const isHomePage =
+    pathname === `/${locale}` || pathname === "/en" || pathname === "/ar";
   const preloadHeroImage = isHomePage;
   return (
     <>
@@ -19,7 +20,7 @@ const ResourceHints = memo(({ locale }: ResourceHintsProps) => {
       <link rel="dns-prefetch" href="//www.googletagmanager.com" />
       <link rel="dns-prefetch" href="//fonts.googleapis.com" />
       <link rel="dns-prefetch" href="//fonts.gstatic.com" />
-      
+
       {/* Early connection establishment for critical resources */}
       <link rel="preconnect" href="https://www.googletagmanager.com" />
 
@@ -29,8 +30,8 @@ const ResourceHints = memo(({ locale }: ResourceHintsProps) => {
         as="image"
         href={
           locale === "ar"
-            ? "/logos/skinior-logo-black-ar.png"
-            : "/logos/skinior-logo-black.png"
+            ? "/logos/Sawavo-logo-black-ar.png"
+            : "/logos/Sawavo-logo-black.png"
         }
         fetchPriority="high"
       />

@@ -206,6 +206,22 @@ import { Product } from '../../interfaces/product.interface';
                   </p>
                 </div>
               </div>
+
+              <div class="form-row">
+                <div class="toggle-field">
+                  <mat-slide-toggle 
+                    formControlName="todayDeal"
+                    color="primary">
+                    <span class="toggle-label">
+                      <mat-icon>local_offer</mat-icon>
+                      Today's Deal
+                    </span>
+                  </mat-slide-toggle>
+                  <p class="toggle-description">
+                    Mark this product as today's special deal
+                  </p>
+                </div>
+              </div>
             </mat-card-content>
           </mat-card>
 
@@ -228,6 +244,10 @@ import { Product } from '../../interfaces/product.interface';
                   <div class="preview-badge" *ngIf="productForm.value.featured">
                     <mat-icon>star</mat-icon>
                     Featured
+                  </div>
+                  <div class="preview-badge today-deal-badge" *ngIf="productForm.value.todayDeal">
+                    <mat-icon>local_offer</mat-icon>
+                    Today's Deal
                   </div>
                 </div>
                 <div class="preview-content">
@@ -560,7 +580,8 @@ export class ProductFormComponent implements OnInit {
       categoryId: ['', Validators.required],
       imageUrl: ['', [Validators.pattern(/^https?:\/\/.*\.(jpg|jpeg|png|gif|webp)$/i)]],
       stock: [0, [Validators.required, Validators.min(0)]],
-      featured: [false]
+      featured: [false],
+      todayDeal: [false]
     });
   }
 
@@ -583,7 +604,8 @@ export class ProductFormComponent implements OnInit {
           categoryId: product.categoryId || '',
           imageUrl: this.getMainImage(product) || '',
           stock: product.stockQuantity || 0,
-          featured: product.isFeatured || false
+          featured: product.isFeatured || false,
+          todayDeal: product.isTodayDeal || false
         });
       },
       error: (error) => {
@@ -607,6 +629,7 @@ export class ProductFormComponent implements OnInit {
         categoryId: formData.categoryId,
         stockQuantity: formData.stock,
         isFeatured: formData.featured,
+        isTodayDeal: formData.todayDeal,
         isActive: true,
         // Add image if provided
         images: formData.imageUrl ? [{
@@ -647,7 +670,8 @@ export class ProductFormComponent implements OnInit {
       categoryId: '',
       imageUrl: '',
       stock: 0,
-      featured: false
+      featured: false,
+      todayDeal: false
     });
   }
 

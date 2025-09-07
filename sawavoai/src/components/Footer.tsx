@@ -18,10 +18,10 @@ const Footer = () => {
               <Image
                 src={
                   locale === "ar"
-                    ? "/logos/skinior-logo-black-ar.png"
-                    : "/logos/skinior-logo-black.png"
+                    ? "/logos/Sawavo-logo-black-ar.png"
+                    : "/logos/Sawavo-logo-black.png"
                 }
-                alt="Skinior"
+                alt="Sawavo"
                 width={120}
                 height={37}
                 className="h-9 w-auto"

@@ -14,6 +14,7 @@ CREATE TABLE "public"."Product" (
     "isActive" BOOLEAN NOT NULL DEFAULT true,
     "isFeatured" BOOLEAN NOT NULL DEFAULT false,
     "isNew" BOOLEAN NOT NULL DEFAULT false,
+    "isTodayDeal" BOOLEAN NOT NULL DEFAULT false,
     "activeIngredients" TEXT,
     "skinType" TEXT,
     "concerns" TEXT,

@@ -60,7 +60,7 @@ const ProductsPage = () => {
     {
       id: "prod-001",
       name: "Gentle Foaming Cleanser",
-      brand: "SkinioR Essentials",
+      brand: "Sawavo Essentials",
       price: 29.99,
       rating: 4.8,
       reviews: 1247,
@@ -73,7 +73,7 @@ const ProductsPage = () => {
     {
       id: "prod-002",
       name: "Vitamin C Brightening Serum",
-      brand: "SkinioR Advanced",
+      brand: "Sawavo Advanced",
       price: 59.99,
       rating: 4.9,
       reviews: 892,
@@ -86,7 +86,7 @@ const ProductsPage = () => {
     {
       id: "prod-003",
       name: "Retinol Night Treatment",
-      brand: "SkinioR Professional",
+      brand: "Sawavo Professional",
       price: 79.99,
       rating: 4.7,
       reviews: 634,
@@ -99,7 +99,7 @@ const ProductsPage = () => {
     {
       id: "prod-004",
       name: "Hydrating Moisturizer SPF 30",
-      brand: "SkinioR Daily",
+      brand: "Sawavo Daily",
       price: 45.99,
       rating: 4.6,
       reviews: 1456,
@@ -112,7 +112,7 @@ const ProductsPage = () => {
     {
       id: "prod-005",
       name: "Niacinamide Pore Refining Serum",
-      brand: "SkinioR Essentials",
+      brand: "Sawavo Essentials",
       price: 34.99,
       rating: 4.5,
       reviews: 789,
@@ -128,7 +128,7 @@ const ProductsPage = () => {
     {
       id: "rec-001",
       name: "Hyaluronic Acid Serum",
-      brand: "SkinioR Essentials",
+      brand: "Sawavo Essentials",
       price: 39.99,
       rating: 4.8,
       reviews: 956,
@@ -141,7 +141,7 @@ const ProductsPage = () => {
     {
       id: "rec-002",
       name: "Salicylic Acid Spot Treatment",
-      brand: "SkinioR Professional",
+      brand: "Sawavo Professional",
       price: 24.99,
       rating: 4.7,
       reviews: 567,
@@ -154,7 +154,7 @@ const ProductsPage = () => {
     {
       id: "rec-003",
       name: "Clay Purifying Mask",
-      brand: "SkinioR Weekly",
+      brand: "Sawavo Weekly",
       price: 27.99,
       rating: 4.6,
       reviews: 423,

@@ -18,48 +18,46 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const isRTL = locale === "ar";
-  
-  const title = isRTL 
-    ? "شروط الاستخدام - سكينيور"
-    : "Terms of Service - Skinior";
-    
-  const description = isRTL
-    ? "اقرأ شروط وأحكام استخدام خدمات سكينيور. حقوقك وواجباتك عند استخدام تحليل البشرة والاستشارات الجلدية المدعومة بالذكاء الاصطناعي"
-    : "Read Skinior's Terms of Service. Your rights and responsibilities when using our AI-powered skin analysis and dermatology consultation services";
-  
-  const keywords = isRTL
-    ? "شروط الاستخدام, الأحكام والشروط, حقوق المستخدم, تحليل البشرة, سكينيور"
-    : "terms of service, terms and conditions, user agreement, skin analysis, liability, user rights, Skinior";
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://skinior.com";
+  const title = isRTL ? "شروط الاستخدام - Sawavo" : "Terms of Service - Sawavo";
+
+  const description = isRTL
+    ? "اقرأ شروط وأحكام استخدام خدمات Sawavo. حقوقك وواجباتك عند استخدام تحليل البشرة والاستشارات الجلدية المدعومة بالذكاء الاصطناعي"
+    : "Read Sawavo's Terms of Service. Your rights and responsibilities when using our AI-powered skin analysis and dermatology consultation services";
+
+  const keywords = isRTL
+    ? "شروط الاستخدام, الأحكام والشروط, حقوق المستخدم, تحليل البشرة, Sawavo"
+    : "terms of service, terms and conditions, user agreement, skin analysis, liability, user rights, Sawavo";
+
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://Sawavo.com";
   const termsUrl = `${baseUrl}/${locale}/terms`;
 
   return {
     title,
     description,
     keywords,
-    authors: [{ name: "Skinior Legal Team" }],
-    creator: "Skinior",
-    publisher: "Skinior",
+    authors: [{ name: "Sawavo Legal Team" }],
+    creator: "Sawavo",
+    publisher: "Sawavo",
     category: "Legal",
     metadataBase: new URL(baseUrl),
-    
+
     openGraph: {
       title,
       description,
       url: termsUrl,
-      siteName: "Skinior",
+      siteName: "Sawavo",
       locale: locale === "ar" ? "ar_SA" : "en_US",
       type: "article",
     },
-    
+
     twitter: {
       card: "summary",
       title,
       description,
-      site: "@skinior",
+      site: "@Sawavo",
     },
-    
+
     alternates: {
       canonical: termsUrl,
       languages: {
@@ -67,7 +65,7 @@ export async function generateMetadata({
         ar: `${baseUrl}/ar/terms`,
       },
     },
-    
+
     robots: {
       index: true,
       follow: true,
@@ -87,13 +85,17 @@ interface TermsPageProps {
 export default function TermsPage({ params }: TermsPageProps) {
   const { locale } = use(params);
   const isRTL = locale === "ar";
-  
+
   // Enable static rendering
   setRequestLocale(locale);
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <h1 className={`text-3xl font-bold text-gray-900 mb-8 ${isRTL ? "font-cairo text-right" : "text-left"}`}>
+      <h1
+        className={`text-3xl font-bold text-gray-900 mb-8 ${
+          isRTL ? "font-cairo text-right" : "text-left"
+        }`}
+      >
         {isRTL ? "شروط الاستخدام" : "Terms of Service"}
       </h1>
 
@@ -103,7 +105,7 @@ export default function TermsPage({ params }: TermsPageProps) {
             1. Terms of Service
           </h2>
           <p className="text-gray-700 mb-4">
-            By using Skinior&apos;s services, you agree to be bound by these
+            By using Sawavo&apos;s services, you agree to be bound by these
             terms and conditions.
           </p>
         </section>
@@ -144,7 +146,7 @@ export default function TermsPage({ params }: TermsPageProps) {
             5. Limitation of Liability
           </h2>
           <p className="text-gray-700 mb-4">
-            Skinior shall not be liable for any indirect, incidental, special,
+            Sawavo shall not be liable for any indirect, incidental, special,
             consequential, or punitive damages.
           </p>
         </section>

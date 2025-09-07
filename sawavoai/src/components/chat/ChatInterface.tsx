@@ -117,7 +117,7 @@ export default function ChatInterface({ onClose }: ChatInterfaceProps) {
       const requestPayload = {
         message: userMessage.content,
         thread_id: threadId,
-        company_codes: ["SKINIOR"], // Add company codes as required by the backend
+        company_codes: ["Sawavo"], // Add company codes as required by the backend
         context: {
           user_type: "web_user",
           session_id: `session_${Date.now()}`,
@@ -127,7 +127,7 @@ export default function ChatInterface({ onClose }: ChatInterfaceProps) {
       console.log("Sending request:", requestPayload);
 
       const response = await fetch(
-        "https://skinior.com/chat-agent/chat/stream",
+        "https://Sawavo.com/chat-agent/chat/stream",
         {
           method: "POST",
           headers: {

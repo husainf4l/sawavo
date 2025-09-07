@@ -3,12 +3,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { DashboardStats, AdminUser, Order, Product } from '../interfaces/admin.interface';
 import { AuthService } from './auth.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
-  private readonly apiUrl = 'http://localhost:4008/api';
+  private readonly apiUrl = environment.apiBaseUrl;
 
   constructor(
     private http: HttpClient,
@@ -16,9 +17,7 @@ export class AdminService {
   ) {}
 
   private getHeaders(): HttpHeaders {
-    const token = this.authService.getToken();
     return new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
     });
   }

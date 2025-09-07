@@ -345,6 +345,18 @@ import { Product, ProductImage } from '../../interfaces/product.interface';
 
                   <div class="form-row">
                     <div class="toggle-group">
+                      <mat-slide-toggle formControlName="isTodayDeal" color="warn">
+                        <span class="toggle-label">
+                          <mat-icon>local_offer</mat-icon>
+                          Today's Deal
+                        </span>
+                      </mat-slide-toggle>
+                      <p class="toggle-description">Mark as today's special deal</p>
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="toggle-group">
                       <mat-slide-toggle formControlName="isNew" color="accent">
                         <span class="toggle-label">
                           <mat-icon>fiber_new</mat-icon>
@@ -676,6 +688,7 @@ export class ProductFormAdvancedComponent implements OnInit {
       sku: [''],
       isActive: [true],
       isFeatured: [false],
+      isTodayDeal: [false],
       isNew: [false],
       activeIngredients: [''],
       skinType: ['all'],
@@ -736,6 +749,7 @@ export class ProductFormAdvancedComponent implements OnInit {
           sku: product.sku || '',
           isActive: product.isActive ?? true,
           isFeatured: product.isFeatured || false,
+          isTodayDeal: product.isTodayDeal || false,
           isNew: product.isNew || false,
           activeIngredients: product.activeIngredients || '',
           skinType: product.skinType || 'all',

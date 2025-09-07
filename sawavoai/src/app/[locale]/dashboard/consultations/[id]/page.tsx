@@ -29,12 +29,18 @@ export default function ConsultationDetailPage() {
       try {
         setLoading(true);
         setError(null);
-        const response = await DashboardService.getConsultationDetails(consultationId);
+        const response = await DashboardService.getConsultationDetails(
+          consultationId
+        );
         setConsultation(response);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to fetch consultation details');
-        if (err instanceof Error && err.message === 'UNAUTHORIZED') {
-          router.push('/login');
+        setError(
+          err instanceof Error
+            ? err.message
+            : "Failed to fetch consultation details"
+        );
+        if (err instanceof Error && err.message === "UNAUTHORIZED") {
+          router.push("/login");
         }
       } finally {
         setLoading(false);
@@ -95,26 +101,66 @@ export default function ConsultationDetailPage() {
     switch (type?.toLowerCase()) {
       case "acne":
         return (
-          <svg className="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+          <svg
+            className="w-8 h-8 text-red-500"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={1.5}
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"
+            />
           </svg>
         );
       case "aging":
         return (
-          <svg className="w-8 h-8 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          <svg
+            className="w-8 h-8 text-purple-500"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={1.5}
+              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
           </svg>
         );
       case "hydration":
         return (
-          <svg className="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+          <svg
+            className="w-8 h-8 text-blue-500"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={1.5}
+              d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
+            />
           </svg>
         );
       default:
         return (
-          <svg className="w-8 h-8 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423L16.5 15.75l.394 1.183a2.25 2.25 0 001.423 1.423L19.5 18.75l-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
+          <svg
+            className="w-8 h-8 text-gray-500"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={1.5}
+              d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423L16.5 15.75l.394 1.183a2.25 2.25 0 001.423 1.423L19.5 18.75l-1.183.394a2.25 2.25 0 00-1.423 1.423z"
+            />
           </svg>
         );
     }
@@ -168,8 +214,14 @@ export default function ConsultationDetailPage() {
           <div className="max-w-7xl mx-auto">
             <EmptyState
               title={isRTL ? "لا توجد استشارة" : "Consultation Not Found"}
-              description={isRTL ? "لم يتم العثور على الاستشارة المطلوبة" : "The requested consultation could not be found"}
-              actionLabel={isRTL ? "العودة للاستشارات" : "Back to Consultations"}
+              description={
+                isRTL
+                  ? "لم يتم العثور على الاستشارة المطلوبة"
+                  : "The requested consultation could not be found"
+              }
+              actionLabel={
+                isRTL ? "العودة للاستشارات" : "Back to Consultations"
+              }
               onAction={() => router.push(`/${locale}/dashboard/consultations`)}
             />
           </div>
@@ -189,8 +241,18 @@ export default function ConsultationDetailPage() {
                 href={`/${locale}/dashboard/consultations`}
                 className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 19l-7-7 7-7"
+                  />
                 </svg>
               </Link>
               <div>
@@ -201,11 +263,7 @@ export default function ConsultationDetailPage() {
                 >
                   {consultation.analysisType || "Skin Analysis"}
                 </h1>
-                <p
-                  className={`text-gray-600 ${
-                    isRTL ? "font-cairo" : ""
-                  }`}
-                >
+                <p className={`text-gray-600 ${isRTL ? "font-cairo" : ""}`}>
                   {formatDate(consultation.createdAt)}
                 </p>
               </div>
@@ -250,7 +308,8 @@ export default function ConsultationDetailPage() {
                       {consultation.analysisType || "Skin Analysis"}
                     </h2>
                     <p className="text-gray-600">
-                      {isRTL ? "مستشار:" : "Advisor:"} {consultation.advisorName || "AI Beauty Advisor"}
+                      {isRTL ? "مستشار:" : "Advisor:"}{" "}
+                      {consultation.advisorName || "AI Beauty Advisor"}
                     </p>
                   </div>
                 </div>
@@ -294,14 +353,16 @@ export default function ConsultationDetailPage() {
                       {isRTL ? "المخاوف المذكورة" : "Concerns Mentioned"}
                     </h3>
                     <div className="flex flex-wrap gap-2">
-                      {consultation.concerns.map((concern: string, index: number) => (
-                        <span
-                          key={index}
-                          className="px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-medium"
-                        >
-                          {concern}
-                        </span>
-                      ))}
+                      {consultation.concerns.map(
+                        (concern: string, index: number) => (
+                          <span
+                            key={index}
+                            className="px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-medium"
+                          >
+                            {concern}
+                          </span>
+                        )
+                      )}
                     </div>
                   </div>
                 )}
@@ -324,82 +385,104 @@ export default function ConsultationDetailPage() {
               </div>
 
               {/* Skin Analysis Results */}
-              {consultation.skinAnalysis && Object.keys(consultation.skinAnalysis).length > 0 && (
-                <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-                  <h2
-                    className={`text-xl font-semibold text-gray-900 mb-6 ${
-                      isRTL ? "font-cairo" : ""
-                    }`}
-                  >
-                    {isRTL ? "نتائج تحليل البشرة" : "Skin Analysis Results"}
-                  </h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {Object.entries(consultation.skinAnalysis).map(([key, value]) => (
-                      <div key={key} className="p-4 border border-gray-100 rounded-lg">
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-sm font-medium text-gray-700 capitalize">
-                            {key.replace(/([A-Z])/g, ' $1').trim()}
-                          </span>
-                          <span className="text-lg font-semibold text-gray-900">
-                            {typeof value === 'number' ? `${value}%` : value}
-                          </span>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2">
+              {consultation.skinAnalysis &&
+                Object.keys(consultation.skinAnalysis).length > 0 && (
+                  <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+                    <h2
+                      className={`text-xl font-semibold text-gray-900 mb-6 ${
+                        isRTL ? "font-cairo" : ""
+                      }`}
+                    >
+                      {isRTL ? "نتائج تحليل البشرة" : "Skin Analysis Results"}
+                    </h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {Object.entries(consultation.skinAnalysis).map(
+                        ([key, value]) => (
                           <div
-                            className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all duration-300"
-                            style={{ width: `${typeof value === 'number' ? value : 0}%` }}
-                          ></div>
-                        </div>
-                      </div>
-                    ))}
+                            key={key}
+                            className="p-4 border border-gray-100 rounded-lg"
+                          >
+                            <div className="flex items-center justify-between mb-2">
+                              <span className="text-sm font-medium text-gray-700 capitalize">
+                                {key.replace(/([A-Z])/g, " $1").trim()}
+                              </span>
+                              <span className="text-lg font-semibold text-gray-900">
+                                {typeof value === "number"
+                                  ? `${value}%`
+                                  : value}
+                              </span>
+                            </div>
+                            <div className="w-full bg-gray-200 rounded-full h-2">
+                              <div
+                                className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all duration-300"
+                                style={{
+                                  width: `${
+                                    typeof value === "number" ? value : 0
+                                  }%`,
+                                }}
+                              ></div>
+                            </div>
+                          </div>
+                        )
+                      )}
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
 
               {/* Recommendations */}
-              {consultation.recommendations && consultation.recommendations.length > 0 && (
-                <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-                  <h2
-                    className={`text-xl font-semibold text-gray-900 mb-6 ${
-                      isRTL ? "font-cairo" : ""
-                    }`}
-                  >
-                    {isRTL ? "التوصيات" : "Recommendations"}
-                  </h2>
-                  <div className="space-y-4">
-                    {consultation.recommendations.map((rec, index: number) => (
-                      <div key={rec.id || index} className="p-4 border border-gray-100 rounded-lg hover:shadow-md transition-shadow">
-                        <div className="flex items-start justify-between mb-3">
-                          <div className="flex items-center space-x-3">
-                            <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                              <span className="text-blue-600 font-semibold">{index + 1}</span>
-                            </div>
-                            <h3 className="text-lg font-semibold text-gray-900">
-                              {rec.title}
-                            </h3>
-                          </div>
-                          <span
-                            className={`px-3 py-1 rounded-full text-xs font-medium ${getPriorityColor(
-                              rec.priority
-                            )}`}
+              {consultation.recommendations &&
+                consultation.recommendations.length > 0 && (
+                  <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+                    <h2
+                      className={`text-xl font-semibold text-gray-900 mb-6 ${
+                        isRTL ? "font-cairo" : ""
+                      }`}
+                    >
+                      {isRTL ? "التوصيات" : "Recommendations"}
+                    </h2>
+                    <div className="space-y-4">
+                      {consultation.recommendations.map(
+                        (rec, index: number) => (
+                          <div
+                            key={rec.id || index}
+                            className="p-4 border border-gray-100 rounded-lg hover:shadow-md transition-shadow"
                           >
-                            {rec.priority}
-                          </span>
-                        </div>
-                        <p className="text-gray-600 mb-3">{rec.description}</p>
-                        <div className="flex items-center justify-between">
-                          <span className="text-sm text-gray-500 capitalize">
-                            {rec.category}
-                          </span>
-                          <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">
-                            {isRTL ? "عرض التفاصيل" : "View Details"}
-                          </button>
-                        </div>
-                      </div>
-                    ))}
+                            <div className="flex items-start justify-between mb-3">
+                              <div className="flex items-center space-x-3">
+                                <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                                  <span className="text-blue-600 font-semibold">
+                                    {index + 1}
+                                  </span>
+                                </div>
+                                <h3 className="text-lg font-semibold text-gray-900">
+                                  {rec.title}
+                                </h3>
+                              </div>
+                              <span
+                                className={`px-3 py-1 rounded-full text-xs font-medium ${getPriorityColor(
+                                  rec.priority
+                                )}`}
+                              >
+                                {rec.priority}
+                              </span>
+                            </div>
+                            <p className="text-gray-600 mb-3">
+                              {rec.description}
+                            </p>
+                            <div className="flex items-center justify-between">
+                              <span className="text-sm text-gray-500 capitalize">
+                                {rec.category}
+                              </span>
+                              <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">
+                                {isRTL ? "عرض التفاصيل" : "View Details"}
+                              </button>
+                            </div>
+                          </div>
+                        )
+                      )}
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
             </div>
 
             {/* Right Column - Sidebar */}
@@ -415,19 +498,37 @@ export default function ConsultationDetailPage() {
                 </h3>
                 <div className="space-y-3">
                   <Link
-                    href={`/${locale}/room`}
+                    href={`/${locale}/skin-analysis`}
                     className="flex items-center p-3 bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors"
                   >
                     <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                      <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                      <svg
+                        className="w-5 h-5 text-blue-600"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={1.5}
+                          d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                        />
                       </svg>
                     </div>
                     <div className={`ml-3 ${isRTL ? "mr-3 ml-0" : ""}`}>
-                      <p className={`font-medium text-gray-900 ${isRTL ? "font-cairo" : ""}`}>
+                      <p
+                        className={`font-medium text-gray-900 ${
+                          isRTL ? "font-cairo" : ""
+                        }`}
+                      >
                         {isRTL ? "استشارة جديدة" : "New Consultation"}
                       </p>
-                      <p className={`text-xs text-gray-600 ${isRTL ? "font-cairo" : ""}`}>
+                      <p
+                        className={`text-xs text-gray-600 ${
+                          isRTL ? "font-cairo" : ""
+                        }`}
+                      >
                         {isRTL ? "احصل على تحليل جديد" : "Get a new analysis"}
                       </p>
                     </div>
@@ -438,15 +539,33 @@ export default function ConsultationDetailPage() {
                     className="flex items-center p-3 bg-green-50 rounded-xl hover:bg-green-100 transition-colors"
                   >
                     <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                      <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423L16.5 15.75l.394 1.183a2.25 2.25 0 001.423 1.423L19.5 18.75l-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
+                      <svg
+                        className="w-5 h-5 text-green-600"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={1.5}
+                          d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423L16.5 15.75l.394 1.183a2.25 2.25 0 001.423 1.423L19.5 18.75l-1.183.394a2.25 2.25 0 00-1.423 1.423z"
+                        />
                       </svg>
                     </div>
                     <div className={`ml-3 ${isRTL ? "mr-3 ml-0" : ""}`}>
-                      <p className={`font-medium text-gray-900 ${isRTL ? "font-cairo" : ""}`}>
+                      <p
+                        className={`font-medium text-gray-900 ${
+                          isRTL ? "font-cairo" : ""
+                        }`}
+                      >
                         {isRTL ? "خطط العلاج" : "Treatment Plans"}
                       </p>
-                      <p className={`text-xs text-gray-600 ${isRTL ? "font-cairo" : ""}`}>
+                      <p
+                        className={`text-xs text-gray-600 ${
+                          isRTL ? "font-cairo" : ""
+                        }`}
+                      >
                         {isRTL ? "عرض خطط العلاج" : "View treatment plans"}
                       </p>
                     </div>
@@ -454,15 +573,33 @@ export default function ConsultationDetailPage() {
 
                   <button className="flex items-center p-3 bg-purple-50 rounded-xl hover:bg-purple-100 transition-colors w-full">
                     <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                      <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
+                      <svg
+                        className="w-5 h-5 text-purple-600"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={1.5}
+                          d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"
+                        />
                       </svg>
                     </div>
                     <div className={`ml-3 ${isRTL ? "mr-3 ml-0" : ""}`}>
-                      <p className={`font-medium text-gray-900 ${isRTL ? "font-cairo" : ""}`}>
+                      <p
+                        className={`font-medium text-gray-900 ${
+                          isRTL ? "font-cairo" : ""
+                        }`}
+                      >
                         {isRTL ? "مشاركة النتائج" : "Share Results"}
                       </p>
-                      <p className={`text-xs text-gray-600 ${isRTL ? "font-cairo" : ""}`}>
+                      <p
+                        className={`text-xs text-gray-600 ${
+                          isRTL ? "font-cairo" : ""
+                        }`}
+                      >
                         {isRTL ? "مشاركة مع الطبيب" : "Share with doctor"}
                       </p>
                     </div>
@@ -487,7 +624,9 @@ export default function ConsultationDetailPage() {
                       </span>
                     </div>
                     <p className="text-sm text-gray-600">
-                      {isRTL ? "تحسن في حالة البشرة" : "Improvement in skin condition"}
+                      {isRTL
+                        ? "تحسن في حالة البشرة"
+                        : "Improvement in skin condition"}
                     </p>
                   </div>
                 </div>
@@ -504,11 +643,15 @@ export default function ConsultationDetailPage() {
                 </h3>
                 <div className="space-y-3">
                   <div className="p-3 border border-gray-100 rounded-lg">
-                    <p className="text-sm font-medium text-gray-900">Acne Analysis</p>
+                    <p className="text-sm font-medium text-gray-900">
+                      Acne Analysis
+                    </p>
                     <p className="text-xs text-gray-500">2 weeks ago</p>
                   </div>
                   <div className="p-3 border border-gray-100 rounded-lg">
-                    <p className="text-sm font-medium text-gray-900">Hydration Check</p>
+                    <p className="text-sm font-medium text-gray-900">
+                      Hydration Check
+                    </p>
                     <p className="text-xs text-gray-500">1 month ago</p>
                   </div>
                 </div>
@@ -526,6 +669,3 @@ export default function ConsultationDetailPage() {
     </DashboardLayout>
   );
 }
-
-
-

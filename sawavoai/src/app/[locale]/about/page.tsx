@@ -23,7 +23,7 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "about" });
 
   return {
-    title: `${t("hero.title")} | Skinior`,
+    title: `${t("hero.title")} | Sawavo`,
     description: t("hero.description"),
     keywords: [
       "AI skincare",
@@ -34,15 +34,15 @@ export async function generateMetadata({
       "beauty AI innovation",
       "clinical skin assessment",
       "skincare experts",
-      "about skinior",
+      "about Sawavo",
       "AI beauty platform",
       locale === "ar" ? "العناية بالبشرة" : "skincare company",
       locale === "ar" ? "الذكاء الاصطناعي" : "AI technology",
       locale === "ar" ? "تحليل البشرة" : "skin analysis",
     ].join(", "),
-    authors: [{ name: "Skinior Team" }],
-    creator: "Skinior",
-    publisher: "Skinior",
+    authors: [{ name: "Sawavo Team" }],
+    creator: "Sawavo",
+    publisher: "Sawavo",
     robots: {
       index: true,
       follow: true,
@@ -55,10 +55,10 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      title: `${t("hero.title")} | Skinior`,
+      title: `${t("hero.title")} | Sawavo`,
       description: t("hero.description"),
-      url: `https://skinior.com/${locale}/about`,
-      siteName: "Skinior",
+      url: `https://Sawavo.com/${locale}/about`,
+      siteName: "Sawavo",
       locale: locale === "ar" ? "ar_SA" : "en_US",
       type: "website",
       images: [
@@ -72,16 +72,16 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: `${t("hero.title")} | Skinior`,
+      title: `${t("hero.title")} | Sawavo`,
       description: t("hero.description"),
       images: ["/hero/hero1.webp"],
-      creator: "@skinior",
+      creator: "@Sawavo",
     },
     alternates: {
-      canonical: `https://skinior.com/${locale}/about`,
+      canonical: `https://Sawavo.com/${locale}/about`,
       languages: {
-        en: "https://skinior.com/en/about",
-        ar: "https://skinior.com/ar/about",
+        en: "https://Sawavo.com/en/about",
+        ar: "https://Sawavo.com/ar/about",
       },
     },
   };

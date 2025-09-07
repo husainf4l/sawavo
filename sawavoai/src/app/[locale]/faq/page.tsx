@@ -22,32 +22,32 @@ export async function generateMetadata({
   const isRTL = locale === "ar";
 
   const title = isRTL
-    ? "الأسئلة الشائعة - سكينيور | العناية بالبشرة"
-    : "Frequently Asked Questions - Skinior | Skincare FAQ";
+    ? "الأسئلة الشائعة - Sawavo | العناية بالبشرة"
+    : "Frequently Asked Questions - Sawavo | Skincare FAQ";
 
   const description = isRTL
-    ? "احصل على إجابات لجميع أسئلتك حول منتجات العناية بالبشرة، الشحن، الإرجاع، وخدمات سكينيور. دليل شامل للأسئلة الشائعة"
-    : "Get answers to all your questions about skincare products, shipping, returns, and Skinior services. Complete FAQ guide for all your concerns";
+    ? "احصل على إجابات لجميع أسئلتك حول منتجات العناية بالبشرة، الشحن، الإرجاع، وخدمات Sawavo. دليل شامل للأسئلة الشائعة"
+    : "Get answers to all your questions about skincare products, shipping, returns, and Sawavo services. Complete FAQ guide for all your concerns";
 
   const localKeywords = jordanKeywords[locale as keyof typeof jordanKeywords];
   const keywords = isRTL
-    ? `أسئلة شائعة, العناية بالبشرة, سكينيور, مساعدة العملاء, دعم فني, ${
+    ? `أسئلة شائعة, العناية بالبشرة, Sawavo, مساعدة العملاء, دعم فني, ${
         localKeywords?.skincare || ""
       }`
-    : `FAQ, frequently asked questions, skincare help, Skinior support, customer service, ${
+    : `FAQ, frequently asked questions, skincare help, Sawavo support, customer service, ${
         localKeywords?.skincare || ""
       }`;
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://skinior.com";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://Sawavo.com";
   const faqUrl = `${baseUrl}/${locale}/faq`;
 
   return {
     title,
     description,
     keywords,
-    authors: [{ name: "Skinior Team" }],
-    creator: "Skinior",
-    publisher: "Skinior",
+    authors: [{ name: "Sawavo Team" }],
+    creator: "Sawavo",
+    publisher: "Sawavo",
     category: "Support",
     metadataBase: new URL(baseUrl),
 
@@ -55,7 +55,7 @@ export async function generateMetadata({
       title,
       description,
       url: faqUrl,
-      siteName: "Skinior",
+      siteName: "Sawavo",
       images: [
         {
           url: "/hero/hero1.webp",
@@ -74,8 +74,8 @@ export async function generateMetadata({
       title,
       description,
       images: ["/hero/hero1.webp"],
-      site: "@skinior",
-      creator: "@skinior",
+      site: "@Sawavo",
+      creator: "@Sawavo",
     },
 
     alternates: {
@@ -448,7 +448,7 @@ export default function FAQPage({
                   {isRTL ? "تواصل معنا" : "Contact Us"}
                 </a>
                 <a
-                  href="mailto:support@skinior.com"
+                  href="mailto:support@Sawavo.com"
                   className="inline-flex items-center justify-center bg-white text-blue-600 border border-blue-200 px-6 py-3 rounded-xl font-medium hover:bg-blue-50 transition-colors"
                 >
                   {isRTL ? "إرسال بريد إلكتروني" : "Send Email"}

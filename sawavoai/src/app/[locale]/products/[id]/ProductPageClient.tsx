@@ -12,7 +12,6 @@ import ProductAttributeSelector, {
   type AttributeSelection,
 } from "@/components/product/ProductAttributeSelector";
 import Breadcrumb from "@/components/SEO/Breadcrumb";
-import ReviewSystem from "@/components/reviews/ReviewSystem";
 
 interface ProductPageClientProps {
   params: Promise<{
@@ -191,7 +190,7 @@ export default function ProductPageClient({ params }: ProductPageClientProps) {
 
   // Generate structured data for the product
   const generateProductStructuredData = () => {
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://skinior.com";
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://Sawavo.com";
 
     return {
       "@context": "https://schema.org",
@@ -201,7 +200,7 @@ export default function ProductPageClient({ params }: ProductPageClientProps) {
       image: productImages.map((img) => img.url).filter(Boolean),
       brand: {
         "@type": "Brand",
-        name: brandName || "Skinior",
+        name: brandName || "Sawavo",
       },
       category: categoryName,
       sku: product.sku,
@@ -222,7 +221,7 @@ export default function ProductPageClient({ params }: ProductPageClientProps) {
         itemCondition: "https://schema.org/NewCondition",
         seller: {
           "@type": "Organization",
-          name: "Skinior",
+          name: "Sawavo",
         },
       },
       ...(product.activeIngredients && {
@@ -332,7 +331,7 @@ export default function ProductPageClient({ params }: ProductPageClientProps) {
                   }`}
                 >
                   <span className={isRTL ? "font-cairo" : ""}>
-                    {brandName || (isRTL ? "سكينيور" : "Skinior")}
+                    {brandName || (isRTL ? "Sawavo" : "Sawavo")}
                   </span>
                   <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
                   <span className={isRTL ? "font-cairo" : ""}>
@@ -757,19 +756,6 @@ export default function ProductPageClient({ params }: ProductPageClientProps) {
                 </div>
               </div>
             </div>
-          </div>
-
-          {/* Reviews Section */}
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <ReviewSystem
-              averageRating={0}
-              totalReviews={0}
-              reviews={[]}
-              onSubmitReview={async (review) => {
-                // TODO: Implement API call to submit review
-                console.log("Submitting review:", review);
-              }}
-            />
           </div>
         </div>
       </div>

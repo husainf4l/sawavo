@@ -22,7 +22,7 @@ export async function generateMetadata({
   const t = await getTranslations({ locale });
 
   return {
-    title: `${t("account.orders.title")} - Skinior`,
+    title: `${t("account.orders.title")} - Sawavo`,
     description: t("account.orders.description"),
   };
 }

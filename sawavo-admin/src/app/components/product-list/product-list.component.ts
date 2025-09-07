@@ -145,6 +145,12 @@ import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
               <mat-icon matChipTrailingIcon *ngIf="selectedFilter() === 'featured'">check</mat-icon>
             </mat-chip>
             <mat-chip 
+              [class.selected]="selectedFilter() === 'today-deal'"
+              (click)="setFilter('today-deal')">
+              Today's Deal
+              <mat-icon matChipTrailingIcon *ngIf="selectedFilter() === 'today-deal'">check</mat-icon>
+            </mat-chip>
+            <mat-chip 
               [class.selected]="selectedFilter() === 'low-stock'"
               (click)="setFilter('low-stock')">
               Low Stock
@@ -192,6 +198,10 @@ import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
                       <span class="apple-badge apple-badge-primary" *ngIf="product?.isFeatured">
                         <mat-icon>star</mat-icon>
                         Featured
+                      </span>
+                      <span class="apple-badge apple-badge-warning" *ngIf="product?.isTodayDeal">
+                        <mat-icon>local_offer</mat-icon>
+                        Today's Deal
                       </span>
                       <span class="apple-badge apple-badge-success" *ngIf="product?.isNew">
                         <mat-icon>fiber_new</mat-icon>
@@ -765,7 +775,7 @@ export class ProductListComponent implements OnInit {
   private readonly allProducts = signal<Product[]>([]);
   readonly loading = signal(true);
   readonly searchQuery = signal('');
-  readonly selectedFilter = signal<'all' | 'featured' | 'low-stock' | 'new'>('all');
+  readonly selectedFilter = signal<'all' | 'featured' | 'today-deal' | 'low-stock' | 'new'>('all');
   readonly currentPage = signal(0);
   readonly pageSize = signal(10);
   readonly editingProductId = signal<string | null>(null);
@@ -828,6 +838,9 @@ export class ProductListComponent implements OnInit {
       case 'featured':
         params.isFeatured = true;
         break;
+      case 'today-deal':
+        params.isTodayDeal = true;
+        break;
       case 'low-stock':
         // For low stock, we'll fetch all and filter client-side since backend doesn't have this filter
         // Or we could fetch all products and filter them
@@ -871,7 +884,7 @@ export class ProductListComponent implements OnInit {
     this.searchSubject.next(query);
   }
 
-  setFilter(filter: 'all' | 'featured' | 'low-stock' | 'new'): void {
+  setFilter(filter: 'all' | 'featured' | 'today-deal' | 'low-stock' | 'new'): void {
     this.selectedFilter.set(filter);
     this.currentPage.set(0); // Reset to first page
     this.loadProducts(); // Reload with new filter

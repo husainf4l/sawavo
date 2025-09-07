@@ -1,17 +1,17 @@
-// Skinior Blog Service Worker for Offline Support
-const CACHE_NAME = 'skinior-blog-v1.0.0';
-const RUNTIME_CACHE = 'skinior-runtime-v1.0.0';
-const IMAGE_CACHE = 'skinior-images-v1.0.0';
+// Sawavo Blog Service Worker for Offline Support
+const CACHE_NAME = 'Sawavo-blog-v1.0.0';
+const RUNTIME_CACHE = 'Sawavo-runtime-v1.0.0';
+const IMAGE_CACHE = 'Sawavo-images-v1.0.0';
 
 // Assets to cache immediately
 const STATIC_ASSETS = [
   '/',
   '/manifest.json',
   '/robots.txt',
-  '/logos/skinior-logo-black.png',
-  '/logos/skinior-logo-black-ar.png',
-  '/logos/skinior-logo-white.png',
-  '/logos/skinior-logo-white-ar.png',
+  '/logos/Sawavo-logo-black.png',
+  '/logos/Sawavo-logo-black-ar.png',
+  '/logos/Sawavo-logo-white.png',
+  '/logos/Sawavo-logo-white-ar.png',
   '/hero/hero1.webp',
   '/hero/hero2.webp',
 ];
@@ -265,7 +265,7 @@ function createOfflineBlogPage() {
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Offline - Skinior Blog</title>
+      <title>Offline - Sawavo Blog</title>
       <style>
         body {
           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -355,7 +355,7 @@ function createOfflinePage() {
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Offline - Skinior</title>
+      <title>Offline - Sawavo</title>
       <style>
         body {
           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -435,8 +435,8 @@ self.addEventListener('push', (event) => {
 
   const options = {
     body: event.data ? event.data.text() : 'New content available!',
-    icon: '/logos/skinior-logo-black.png',
-    badge: '/logos/skinior-logo-black.png',
+    icon: '/logos/Sawavo-logo-black.png',
+    badge: '/logos/Sawavo-logo-black.png',
     vibrate: [100, 50, 100],
     data: {
       dateOfArrival: Date.now(),
@@ -446,18 +446,18 @@ self.addEventListener('push', (event) => {
       {
         action: 'explore',
         title: 'Read Now',
-        icon: '/logos/skinior-logo-black.png'
+        icon: '/logos/Sawavo-logo-black.png'
       },
       {
         action: 'close',
         title: 'Close',
-        icon: '/logos/skinior-logo-black.png'
+        icon: '/logos/Sawavo-logo-black.png'
       }
     ]
   };
 
   event.waitUntil(
-    self.registration.showNotification('Skinior Blog', options)
+    self.registration.showNotification('Sawavo Blog', options)
   );
 });
 

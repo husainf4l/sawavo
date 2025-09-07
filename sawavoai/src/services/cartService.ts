@@ -25,7 +25,7 @@ export class ItemNotFoundError extends CartServiceError {
 
 // Storage keys for localStorage
 const CART_STORAGE_KEY = 'cart-storage';
-const SESSION_ID_KEY = 'skinior-session-id';
+const SESSION_ID_KEY = 'Sawavo-session-id';
 
 // Helper functions for session management
 const getStoredSessionId = (): string => {

@@ -1,5 +1,5 @@
 {
-  "name": "skiniorai",
+  "name": "Sawavoai",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -18,11 +18,8 @@
   "dependencies": {
     "@floating-ui/react": "^0.27.15",
     "@heroicons/react": "^2.2.0",
-    "@livekit/components-react": "^2.9.14",
-    "@livekit/components-styles": "^1.1.6",
     "critters": "^0.0.23",
     "isomorphic-dompurify": "^2.26.0",
-    "livekit-client": "^2.15.5",
     "next": "15.4.6",
     "next-intl": "^4.3.4",
     "react": "19.1.0",

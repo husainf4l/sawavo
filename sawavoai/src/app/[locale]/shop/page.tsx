@@ -8,7 +8,6 @@ import ShopProductList from "../../../components/ShopProductList";
 import Breadcrumb from "../../../components/SEO/Breadcrumb";
 import LocalSEO, { jordanKeywords } from "../../../components/SEO/LocalSEO";
 
-
 // Generate static paths for both locales
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -26,50 +25,60 @@ export async function generateMetadata({
   const resolvedSearchParams = searchParams ? await searchParams : undefined;
   const isDealsPage = resolvedSearchParams?.deals === "true";
   const isRTL = locale === "ar";
-  
+
   const title = isDealsPage
-    ? isRTL 
-      ? "عروض وخصومات خاصة - منتجات العناية بالبشرة | سكينيور"
-      : "Special Deals & Discounts - Skincare Products | Skinior"
+    ? isRTL
+      ? "عروض وخصومات خاصة - منتجات العناية بالبشرة | Sawavo"
+      : "Special Deals & Discounts - Skincare Products | Sawavo"
     : isRTL
-      ? "متجر سكينيور - منتجات العناية بالبشرة الفاخرة"
-      : "Skinior Shop - Premium Skincare Products";
-    
+    ? "متجر Sawavo - منتجات العناية بالبشرة الفاخرة"
+    : "Sawavo Shop - Premium Skincare Products";
+
   const description = isDealsPage
     ? isRTL
-      ? "لا تفوت عروضنا الحصرية والخصومات الخاصة على منتجات العناية بالبشرة المميزة. وفر أكثر على منتجات التجميل الفاخرة من سكينيور"
-      : "Don't miss our exclusive discounts and special offers on premium skincare products. Save more on luxury beauty products from Skinior"
+      ? "لا تفوت عروضنا الحصرية والخصومات الخاصة على منتجات العناية بالبشرة المميزة. وفر أكثر على منتجات التجميل الفاخرة من Sawavo"
+      : "Don't miss our exclusive discounts and special offers on premium skincare products. Save more on luxury beauty products from Sawavo"
     : isRTL
-      ? "تسوق منتجات العناية بالبشرة عالية الجودة من سكينيور. كريمات، أمصال، ومنظفات طبيعية للعناية المثلى بجمال بشرتك"
-      : "Shop high-quality skincare products from Skinior. Natural creams, serums, cleansers and treatments for optimal skin health and beauty";
-  
+    ? "تسوق منتجات العناية بالبشرة عالية الجودة من Sawavo. كريمات، أمصال، ومنظفات طبيعية للعناية المثلى بجمال بشرتك"
+    : "Shop high-quality skincare products from Sawavo. Natural creams, serums, cleansers and treatments for optimal skin health and beauty";
+
   const localKeywords = jordanKeywords[locale as keyof typeof jordanKeywords];
   const keywords = isDealsPage
     ? isRTL
-      ? `عروض, خصومات, منتجات التجميل, العناية بالبشرة, تخفيضات, سكينيور, ${localKeywords?.products || ''}`
-      : `deals, discounts, beauty products, skincare offers, special prices, sale, Skinior, ${localKeywords?.products || ''}`
+      ? `عروض, خصومات, منتجات التجميل, العناية بالبشرة, تخفيضات, Sawavo, ${
+          localKeywords?.products || ""
+        }`
+      : `deals, discounts, beauty products, skincare offers, special prices, sale, Sawavo, ${
+          localKeywords?.products || ""
+        }`
     : isRTL
-      ? `متجر التجميل, منتجات العناية بالبشرة, كريمات, أمصال, منظفات, سكينيور, ${localKeywords?.shop || ''}`
-      : `beauty shop, skincare products, creams, serums, cleansers, treatments, natural skincare, Skinior, ${localKeywords?.shop || ''}`;
+    ? `متجر التجميل, منتجات العناية بالبشرة, كريمات, أمصال, منظفات, Sawavo, ${
+        localKeywords?.shop || ""
+      }`
+    : `beauty shop, skincare products, creams, serums, cleansers, treatments, natural skincare, Sawavo, ${
+        localKeywords?.shop || ""
+      }`;
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://skinior.com";
-  const shopUrl = `${baseUrl}/${locale}/shop${isDealsPage ? "?deals=true" : ""}`;
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://Sawavo.com";
+  const shopUrl = `${baseUrl}/${locale}/shop${
+    isDealsPage ? "?deals=true" : ""
+  }`;
 
   return {
     title,
     description,
     keywords,
-    authors: [{ name: "Skinior Team" }],
-    creator: "Skinior",
-    publisher: "Skinior",
+    authors: [{ name: "Sawavo Team" }],
+    creator: "Sawavo",
+    publisher: "Sawavo",
     category: "E-commerce",
     metadataBase: new URL(baseUrl),
-    
+
     openGraph: {
       title,
       description,
       url: shopUrl,
-      siteName: "Skinior",
+      siteName: "Sawavo",
       images: [
         {
           url: isDealsPage ? "/deals/special-offers.webp" : "/hero/hero1.webp",
@@ -82,16 +91,16 @@ export async function generateMetadata({
       locale: locale === "ar" ? "ar_SA" : "en_US",
       type: "website",
     },
-    
+
     twitter: {
       card: "summary_large_image",
       title,
       description,
       images: [isDealsPage ? "/deals/special-offers.webp" : "/hero/hero1.webp"],
-      site: "@skinior",
-      creator: "@skinior",
+      site: "@Sawavo",
+      creator: "@Sawavo",
     },
-    
+
     alternates: {
       canonical: shopUrl,
       languages: {
@@ -99,7 +108,7 @@ export async function generateMetadata({
         ar: `${baseUrl}/ar/shop${isDealsPage ? "?deals=true" : ""}`,
       },
     },
-    
+
     robots: {
       index: true,
       follow: true,
@@ -111,7 +120,7 @@ export async function generateMetadata({
         "max-snippet": -1,
       },
     },
-    
+
     other: {
       "product:availability": "in stock",
       "product:condition": "new",
@@ -140,7 +149,11 @@ export default function ShopPage({
       <div className="bg-white border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="pt-12 sm:pt-16 lg:pt-20 pb-8 sm:pb-12 text-center shop-hero-animation">
-            <h1 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light tracking-tight text-gray-900 mb-4 sm:mb-6 leading-tight ${locale === "ar" ? "font-cairo" : ""}`}>
+            <h1
+              className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light tracking-tight text-gray-900 mb-4 sm:mb-6 leading-tight ${
+                locale === "ar" ? "font-cairo" : ""
+              }`}
+            >
               {isDealsPage
                 ? locale === "ar"
                   ? "عروض خاصة لك"
@@ -149,7 +162,11 @@ export default function ShopPage({
                 ? "المتجر"
                 : "Shop"}
             </h1>
-            <p className={`text-lg sm:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-4 ${locale === "ar" ? "font-cairo" : ""}`}>
+            <p
+              className={`text-lg sm:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-4 ${
+                locale === "ar" ? "font-cairo" : ""
+              }`}
+            >
               {isDealsPage
                 ? locale === "ar"
                   ? "لا تفوت عروضنا الحصرية والخصومات الخاصة على منتجات العناية بالبشرة المميزة"
@@ -169,21 +186,25 @@ export default function ShopPage({
           items={[
             {
               name: locale === "ar" ? "الرئيسية" : "Home",
-              href: `/${locale}`
+              href: `/${locale}`,
             },
             {
-              name: isDealsPage 
-                ? (locale === "ar" ? "العروض الخاصة" : "Special Deals")
-                : (locale === "ar" ? "المتجر" : "Shop")
-            }
+              name: isDealsPage
+                ? locale === "ar"
+                  ? "العروض الخاصة"
+                  : "Special Deals"
+                : locale === "ar"
+                ? "المتجر"
+                : "Shop",
+            },
           ]}
           className="mb-8"
         />
-        
+
         {/* Client-side product list component */}
         <ShopProductList locale={locale} />
       </div>
-      
+
       {/* Local SEO for Jordan */}
       <LocalSEO locale={locale} />
     </div>

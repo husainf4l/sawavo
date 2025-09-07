@@ -18,48 +18,46 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const isRTL = locale === "ar";
-  
-  const title = isRTL 
-    ? "سياسة الخصوصية - سكينيور"
-    : "Privacy Policy - Skinior";
-    
-  const description = isRTL
-    ? "اطلع على سياسة الخصوصية الخاصة بسكينيور. كيف نجمع ونستخدم ونحمي بياناتك الشخصية ومعلومات تحليل البشرة بأمان وشفافية"
-    : "Read Skinior's Privacy Policy. Learn how we collect, use, and protect your personal data and skin analysis information with safety and transparency";
-  
-  const keywords = isRTL
-    ? "سياسة الخصوصية, حماية البيانات, الأمان, المعلومات الشخصية, تحليل البشرة, سكينيور"
-    : "privacy policy, data protection, security, personal information, skin analysis, GDPR, user rights, Skinior";
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://skinior.com";
+  const title = isRTL ? "سياسة الخصوصية - Sawavo" : "Privacy Policy - Sawavo";
+
+  const description = isRTL
+    ? "اطلع على سياسة الخصوصية الخاصة بSawavo. كيف نجمع ونستخدم ونحمي بياناتك الشخصية ومعلومات تحليل البشرة بأمان وشفافية"
+    : "Read Sawavo's Privacy Policy. Learn how we collect, use, and protect your personal data and skin analysis information with safety and transparency";
+
+  const keywords = isRTL
+    ? "سياسة الخصوصية, حماية البيانات, الأمان, المعلومات الشخصية, تحليل البشرة, Sawavo"
+    : "privacy policy, data protection, security, personal information, skin analysis, GDPR, user rights, Sawavo";
+
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://Sawavo.com";
   const privacyUrl = `${baseUrl}/${locale}/privacy`;
 
   return {
     title,
     description,
     keywords,
-    authors: [{ name: "Skinior Legal Team" }],
-    creator: "Skinior",
-    publisher: "Skinior",
+    authors: [{ name: "Sawavo Legal Team" }],
+    creator: "Sawavo",
+    publisher: "Sawavo",
     category: "Legal",
     metadataBase: new URL(baseUrl),
-    
+
     openGraph: {
       title,
       description,
       url: privacyUrl,
-      siteName: "Skinior",
+      siteName: "Sawavo",
       locale: locale === "ar" ? "ar_SA" : "en_US",
       type: "article",
     },
-    
+
     twitter: {
       card: "summary",
       title,
       description,
-      site: "@skinior",
+      site: "@Sawavo",
     },
-    
+
     alternates: {
       canonical: privacyUrl,
       languages: {
@@ -67,7 +65,7 @@ export async function generateMetadata({
         ar: `${baseUrl}/ar/privacy`,
       },
     },
-    
+
     robots: {
       index: true,
       follow: true,
@@ -87,13 +85,17 @@ interface PrivacyPageProps {
 export default function PrivacyPage({ params }: PrivacyPageProps) {
   const { locale } = use(params);
   const isRTL = locale === "ar";
-  
+
   // Enable static rendering
   setRequestLocale(locale);
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <h1 className={`text-3xl font-bold text-gray-900 mb-8 ${isRTL ? "font-cairo text-right" : "text-left"}`}>
+      <h1
+        className={`text-3xl font-bold text-gray-900 mb-8 ${
+          isRTL ? "font-cairo text-right" : "text-left"
+        }`}
+      >
         {isRTL ? "سياسة الخصوصية" : "Privacy Policy"}
       </h1>
 

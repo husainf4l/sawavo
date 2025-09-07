@@ -7,8 +7,8 @@ import {
   useState,
   useEffect,
   useCallback,
-  startTransition,
   useMemo,
+  startTransition,
 } from "react";
 
 const HeroSection = () => {
@@ -59,9 +59,9 @@ const HeroSection = () => {
     }
   }, []);
 
-  // Handle navigation to room page
+  // Handle navigation to shop page
   const handleGetAnalysis = useCallback(() => {
-    router.push(`/${locale}/room`);
+    router.push(`/${locale}/shop`);
   }, [router, locale]);
 
   // Optimized mouse move handler - disabled on mobile for performance
@@ -153,24 +153,28 @@ const HeroSection = () => {
       }`}
       dir={isRTL ? "rtl" : "ltr"}
     >
-      {/* Optimized Background - only render if loaded */}
+      {/* Optimized Background - Marketing Focused */}
       {isLoaded && (
         <div className="absolute inset-0">
           <div
-            className="absolute inset-0 bg-gradient-to-br from-gray-50/30 via-transparent to-blue-50/20 will-change-transform"
+            className="absolute inset-0 bg-gradient-to-br from-rose-50/40 via-white to-pink-50/30 will-change-transform"
             style={{
               transform: `translate3d(${mousePosition.x * 0.01}px, ${
                 mousePosition.y * 0.01
               }px, 0)`,
             }}
           />
+          {/* Subtle pattern overlay */}
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-rose-100/20 to-transparent transform -skew-y-12"></div>
+          </div>
         </div>
       )}
 
       {/* Hero Content */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-6 lg:px-8 py-16">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8 py-20">
         <div
-          className={`grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center ${
+          className={`grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center ${
             isRTL ? "lg:grid-flow-col-dense" : ""
           }`}
         >
@@ -182,131 +186,286 @@ const HeroSection = () => {
                 : "order-2 lg:order-1 text-center lg:text-left"
             }`}
           >
-            {/* Badge */}
-            <div className="opacity-100">
+            {/* Compelling Marketing Badge */}
+            <div className="opacity-100 animate-fade-in">
               <div
-                className={`inline-flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full text-sm font-medium text-gray-700 ${
+                className={`inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-rose-50 to-pink-50 border border-rose-200 text-rose-700 rounded-full text-sm font-semibold shadow-sm ${
                   isRTL ? "flex-row-reverse font-cairo" : ""
                 }`}
               >
-                <div className="w-1.5 h-1.5 bg-green-500 rounded-full" />
-                <span>
+                <div className="w-2 h-2 bg-rose-500 rounded-full animate-pulse shadow-sm" />
+                <span className="tracking-wide">
                   {isRTL
-                    ? "جديد: تحليل ذكي متطور"
-                    : "New: Advanced AI Analysis"}
+                    ? "اكتشاف جديد: نتائج مضمونة في 30 يوم"
+                    : "New Discovery: Guaranteed Results in 30 Days"}
                 </span>
+                <svg
+                  className="w-4 h-4 text-rose-500"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z"
+                    clipRule="evenodd"
+                  />
+                </svg>
               </div>
             </div>
 
-            {/* Main Headline - More focused and minimal */}
-            <div className="space-y-4">
+            {/* Main Headline - Marketing Focused */}
+            <div className="space-y-6">
               <h1
                 className={`${
                   isRTL
-                    ? "text-4xl lg:text-6xl font-cairo font-light text-gray-900 leading-tight"
-                    : "text-4xl lg:text-6xl font-light text-gray-900 leading-tight tracking-tight"
+                    ? "text-5xl lg:text-7xl font-cairo font-extralight text-gray-900 leading-[1.1] tracking-wide"
+                    : "text-5xl lg:text-7xl font-extralight text-gray-900 leading-[1.1] tracking-tight"
                 }`}
               >
                 {isRTL ? (
                   <>
-                    <span className="block mb-1">اكتشفي إشراقة</span>
-                    <span className="block text-blue-600 font-normal">
-                      بشرتك الحقيقية
+                    <span className="block mb-2 text-gray-800">
+                      احصلي على بشرة
+                    </span>
+                    <span className="block text-rose-600 font-normal">
+                      مثالية في 30 يوم
                     </span>
                   </>
                 ) : (
                   <>
-                    <span className="block mb-1">Discover your</span>
-                    <span className="block text-blue-600 font-normal">
-                      skin&apos;s true potential
+                    <span className="block mb-2 text-gray-800">
+                      Get Perfect Skin
+                    </span>
+                    <span className="block text-rose-600 font-normal">
+                      in Just 30 Days
                     </span>
                   </>
                 )}
               </h1>
 
               <p
-                className={`text-lg lg:text-xl text-gray-600 max-w-lg ${
-                  isRTL
-                    ? "font-cairo leading-relaxed mx-auto lg:mx-0"
-                    : "leading-relaxed mx-auto lg:mx-0"
+                className={`text-xl lg:text-2xl text-gray-600 max-w-2xl leading-relaxed font-light ${
+                  isRTL ? "font-cairo mx-auto lg:mx-0" : "mx-auto lg:mx-0"
                 }`}
               >
                 {isRTL
-                  ? "تكنولوجيا متقدمة تحلل بشرتك بدقة علمية وتقدم لك خطة عناية شخصية مصممة خصيصاً لتحقيق أفضل النتائج"
-                  : "Advanced technology analyzes your skin with scientific precision, delivering a personalized skincare roadmap designed for your best results"}
+                  ? "اكتشفي سر البشرة المشرقة مع منتجاتنا الطبيعية 100%. نتائج سريعة، آمنة، ومضمونة مع استرداد أموالك في 60 يوم"
+                  : "Discover the secret to radiant skin with our 100% natural products. Fast, safe, and guaranteed results with 60-day money-back promise"}
               </p>
             </div>
 
-            {/* Single focused CTA */}
-            <div>
-              <button
-                onClick={handleGetAnalysis}
-                className={`bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-xl text-lg font-medium hover:opacity-90 focus:outline-none transition-all duration-200 hover:scale-105 ${
-                  isRTL ? "font-cairo" : ""
-                }`}
-              >
-                {isRTL ? "احصلي على تحليلك المجاني" : "Get Your Free Analysis"}
-              </button>
+            {/* Marketing-Focused CTAs */}
+            <div className="pt-6">
+              <div className="flex flex-col sm:flex-row gap-4 mb-6">
+                <button
+                  onClick={handleGetAnalysis}
+                  className={`bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 hover:shadow-xl shadow-lg hover:scale-105 ${
+                    isRTL ? "font-cairo" : ""
+                  }`}
+                >
+                  <span className="flex items-center gap-3">
+                    {isRTL ? "ابدأي رحلتك الآن" : "Start Your Journey"}
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M13 7l5 5m0 0l-5 5m5-5H6"
+                      />
+                    </svg>
+                  </span>
+                </button>
 
-              <p
-                className={`mt-3 text-sm text-gray-500 ${
-                  isRTL ? "font-cairo" : ""
-                }`}
-              >
-                {isRTL
-                  ? "تحليل شامل • نتائج فورية • توصيات مخصصة"
-                  : "Complete analysis • Instant results • Custom recommendations"}
-              </p>
+                <button
+                  onClick={() => router.push(`/${locale}/products`)}
+                  className={`bg-white border-2 border-rose-200 hover:border-rose-300 text-rose-600 px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 hover:shadow-lg hover:bg-rose-50 ${
+                    isRTL ? "font-cairo" : ""
+                  }`}
+                >
+                  {isRTL ? "استكشفي المنتجات" : "Explore Products"}
+                </button>
+              </div>
+
+              {/* Urgency & Social Proof */}
+              <div className="bg-gradient-to-r from-rose-50 to-pink-50 rounded-2xl p-6 border border-rose-100">
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                  <div className="flex items-center gap-4">
+                    <div className="flex -space-x-2">
+                      <div className="w-8 h-8 bg-rose-400 rounded-full border-2 border-white"></div>
+                      <div className="w-8 h-8 bg-pink-400 rounded-full border-2 border-white"></div>
+                      <div className="w-8 h-8 bg-purple-400 rounded-full border-2 border-white"></div>
+                      <div className="w-8 h-8 bg-gradient-to-r from-rose-400 to-pink-400 rounded-full border-2 border-white flex items-center justify-center text-white text-xs font-bold">
+                        +
+                      </div>
+                    </div>
+                    <div>
+                      <div
+                        className={`text-sm font-semibold text-gray-900 ${
+                          isRTL ? "font-cairo" : ""
+                        }`}
+                      >
+                        {isRTL
+                          ? "انضمي لأكثر من 10,000 عميل راضي"
+                          : "Join 10,000+ Happy Customers"}
+                      </div>
+                      <div className="flex items-center gap-1 mt-1">
+                        <div className="flex text-yellow-400">
+                          {[...Array(5)].map((_, i) => (
+                            <svg
+                              key={i}
+                              className="w-4 h-4 fill-current"
+                              viewBox="0 0 20 20"
+                            >
+                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                          ))}
+                        </div>
+                        <span className="text-sm text-gray-600 ml-1">
+                          4.9/5
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-6 text-sm text-gray-600">
+                    <div className="flex items-center gap-2">
+                      <svg
+                        className="w-5 h-5 text-green-600"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      <span
+                        className={`font-medium ${isRTL ? "font-cairo" : ""}`}
+                      >
+                        {isRTL ? "ضمان 60 يوم" : "60-Day Guarantee"}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <svg
+                        className="w-5 h-5 text-blue-600"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      <span
+                        className={`font-medium ${isRTL ? "font-cairo" : ""}`}
+                      >
+                        {isRTL ? "توصيل مجاني" : "Free Shipping"}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            {/* Minimal Stats */}
-            <div className="grid grid-cols-3 gap-6 pt-6">
+            {/* Marketing Stats */}
+            <div className="grid grid-cols-3 gap-8 pt-16 border-t border-gray-200">
               <div
-                className={`text-center ${
+                className={`text-center group ${
                   isRTL ? "lg:text-right" : "lg:text-left"
                 }`}
               >
-                <div className="text-2xl font-light text-gray-900 mb-1">
+                <div className="flex items-center justify-center mb-4">
+                  <div className="w-16 h-16 bg-gradient-to-br from-rose-100 to-pink-100 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-sm">
+                    <svg
+                      className="w-8 h-8 text-rose-600"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                </div>
+                <div className="text-4xl font-bold mb-2 bg-gradient-to-r from-rose-600 to-pink-600 bg-clip-text text-transparent">
                   98%
                 </div>
                 <div
-                  className={`text-xs text-gray-600 ${
+                  className={`text-sm text-gray-600 font-semibold uppercase tracking-wide ${
                     isRTL ? "font-cairo" : ""
                   }`}
                 >
-                  {isRTL ? "دقة" : "Accuracy"}
+                  {isRTL ? "رضا العملاء" : "Customer Satisfaction"}
                 </div>
               </div>
               <div
-                className={`text-center ${
+                className={`text-center group ${
                   isRTL ? "lg:text-right" : "lg:text-left"
                 }`}
               >
-                <div className="text-2xl font-light text-gray-900 mb-1">
-                  2M+
+                <div className="flex items-center justify-center mb-4">
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-sm">
+                    <svg
+                      className="w-8 h-8 text-blue-600"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M4 2a2 2 0 00-2 2v11a3 3 0 106 0V4a2 2 0 00-2-2H4zm1 14a1 1 0 100-2 1 1 0 000 2zm5-1.757l4.9-4.9a2 2 0 000-2.828L13.485 5.1a2 2 0 00-2.828 0L10 5.757v8.486zM16 18H9.071l6-6H16a2 2 0 012 2v2a2 2 0 01-2 2z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div className="text-4xl font-bold mb-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  25K+
                 </div>
                 <div
-                  className={`text-xs text-gray-600 ${
+                  className={`text-sm text-gray-600 font-semibold uppercase tracking-wide ${
                     isRTL ? "font-cairo" : ""
                   }`}
                 >
-                  {isRTL ? "تحليل" : "Analyses"}
+                  {isRTL ? "منتج مباع" : "Products Sold"}
                 </div>
               </div>
               <div
-                className={`text-center ${
+                className={`text-center group ${
                   isRTL ? "lg:text-right" : "lg:text-left"
                 }`}
               >
-                <div className="text-2xl font-light text-gray-900 mb-1">
-                  30s
+                <div className="flex items-center justify-center mb-4">
+                  <div className="w-16 h-16 bg-gradient-to-br from-yellow-100 to-orange-100 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-sm">
+                    <svg
+                      className="w-8 h-8 text-yellow-600"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  </div>
+                </div>
+                <div className="text-4xl font-bold mb-2 bg-gradient-to-r from-yellow-600 to-orange-600 bg-clip-text text-transparent flex items-center justify-center gap-1">
+                  4.9
+                  <svg
+                    className="w-6 h-6 text-yellow-500"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
                 </div>
                 <div
-                  className={`text-xs text-gray-600 ${
+                  className={`text-sm text-gray-600 font-semibold uppercase tracking-wide ${
                     isRTL ? "font-cairo" : ""
                   }`}
                 >
-                  {isRTL ? "سرعة" : "Speed"}
+                  {isRTL ? "تقييم المنتجات" : "Product Rating"}
                 </div>
               </div>
             </div>
@@ -386,7 +545,7 @@ const HeroSection = () => {
                     isRTL ? "font-cairo" : ""
                   }`}
                 >
-                  {isRTL ? "تحليل نشط" : "Analyzing"}
+                  {isRTL ? "أفضل مبيعات" : "Best Seller"}
                 </span>
               </div>
 

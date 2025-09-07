@@ -15,14 +15,14 @@ export default function FloatingLayer() {
     // This is the same approach used by Intercom, Zendesk, etc.
     const createFloatingContainer = () => {
       // Remove any existing container first
-      const existing = document.getElementById("skinior-floating-widget");
+      const existing = document.getElementById("Sawavo-floating-widget");
       if (existing) {
         existing.remove();
       }
 
       // Create a new container element
       const container = document.createElement("div");
-      container.id = "skinior-floating-widget";
+      container.id = "Sawavo-floating-widget";
 
       // Apply styles directly as CSS text to prevent any override
       container.style.cssText = `
@@ -61,7 +61,7 @@ export default function FloatingLayer() {
 
     // Cleanup function - use element.remove() which is safe if the node is already detached
     return () => {
-      const element = document.getElementById("skinior-floating-widget");
+      const element = document.getElementById("Sawavo-floating-widget");
       if (element) {
         // Only remove if we created it (no-op if it's already detached)
         try {
@@ -80,7 +80,7 @@ export default function FloatingLayer() {
   useEffect(() => {
     if (!mounted) return;
 
-    const container = document.getElementById("skinior-floating-widget");
+    const container = document.getElementById("Sawavo-floating-widget");
     if (!container) return;
 
     // Import React and ReactDOM dynamically to render into the container

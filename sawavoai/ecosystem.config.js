@@ -1,8 +1,8 @@
 module.exports = {
   apps: [
     {
-      name: 'skiniorai',
-      cwd: '/home/husain/skinior/skiniorai',
+      name: 'Sawavoai',
+      cwd: '/home/husain/Sawavo/Sawavoai',
       script: 'npm',
       args: 'run start',
       instances: 1,
@@ -17,8 +17,8 @@ module.exports = {
     },
     {
       // PM2 entry for local development (runs `npm run dev`)
-      name: 'skiniorai-dev',
-      cwd: '/home/husain/skinior/skiniorai',
+      name: 'Sawavoai-dev',
+      cwd: '/home/husain/Sawavo/Sawavoai',
       script: 'npm',
       args: 'run dev',
       instances: 1,

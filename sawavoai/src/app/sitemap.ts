@@ -1,24 +1,30 @@
 import { MetadataRoute } from 'next'
 import { productsService } from '@/services/productsService'
+import { BlogService } from '@/services/blogService'
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://skinior.com'
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://Sawavo.com'
 const locales = ['en', 'ar']
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const sitemap: MetadataRoute.Sitemap = []
 
-  // Static routes
+    // Static routes
   const staticRoutes = [
     '',
     '/about',
-    '/products', 
+    '/products',
     '/shop',
     '/blog',
     '/routines',
     '/skin-analysis',
     '/faq',
     '/privacy',
-    '/terms'
+    '/terms',
+    '/account',
+    '/dashboard',
+    '/checkout',
+    '/login',
+    '/signup'
   ]
 
   // Add static routes for both locales
@@ -27,8 +33,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       sitemap.push({
         url: `${baseUrl}/${locale}${route}`,
         lastModified: new Date(),
-        changeFrequency: route === '' || route === '/products' || route === '/blog' ? 'daily' : 'weekly',
-        priority: route === '' ? 1.0 : route === '/products' || route === '/blog' ? 0.9 : 0.7,
+        changeFrequency: route === '' ? 'daily' : route === '/products' || route === '/blog' || route === '/shop' ? 'daily' : route === '/skin-analysis' || route === '/routines' ? 'weekly' : 'monthly',
+        priority: route === '' ? 1.0 : route === '/products' || route === '/shop' ? 0.9 : route === '/blog' || route === '/skin-analysis' ? 0.8 : route === '/about' || route === '/routines' ? 0.7 : 0.5,
         alternates: {
           languages: {
             en: `${baseUrl}/en${route}`,
@@ -67,10 +73,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error('Error generating product sitemap entries:', error)
   }
 
-  // Add blog routes if blog service exists
+  // Add blog routes
   try {
-    // This would be dynamically generated based on your blog posts
-    // Add blog post URLs here when you have a blog service
+    const blogResult = await BlogService.getPosts({ 
+      limit: 1000, // Get all published blog posts
+      published: true
+    })
+    const blogPosts = blogResult.posts || []
+    
+    for (const post of blogPosts) {
+      for (const locale of locales) {
+        sitemap.push({
+          url: `${baseUrl}/${locale}/blog/${post.slug}`,
+          lastModified: post.updatedAt ? new Date(post.updatedAt) : new Date(),
+          changeFrequency: 'monthly',
+          priority: 0.6,
+          alternates: {
+            languages: {
+              en: `${baseUrl}/en/blog/${post.slug}`,
+              ar: `${baseUrl}/ar/blog/${post.slug}`,
+            },
+          },
+        })
+      }
+    }
   } catch (error) {
     console.error('Error generating blog sitemap entries:', error)
   }

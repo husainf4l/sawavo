@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next'
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://skinior.com'
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://Sawavo.com'
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -26,7 +26,9 @@ export default function robots(): MetadataRoute.Robots {
           '/en/privacy',
           '/ar/privacy',
           '/en/terms',
-          '/ar/terms'
+          '/ar/terms',
+          '/en/faq',
+          '/ar/faq'
         ],
         disallow: [
           '/api/',

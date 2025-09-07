@@ -20,7 +20,7 @@ export const BlogSEO = ({
     return textObj[locale as keyof typeof textObj] || textObj.en;
   };
 
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://skinior.com";
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://Sawavo.com";
 
   // Generate structured data for blog post
   const generatePostStructuredData = (post: BlogPost) => {
@@ -53,18 +53,18 @@ export const BlogSEO = ({
       },
       publisher: {
         "@type": "Organization",
-        name: "Skinior",
+        name: "Sawavo",
         logo: {
           "@type": "ImageObject",
-          url: `${baseUrl}/logos/skinior-logo-black.png`,
+          url: `${baseUrl}/logos/Sawavo-logo-black.png`,
           width: 200,
           height: 60,
         },
         url: baseUrl,
         sameAs: [
-          "https://facebook.com/skinior",
-          "https://twitter.com/skinior",
-          "https://instagram.com/skinior",
+          "https://facebook.com/Sawavo",
+          "https://twitter.com/Sawavo",
+          "https://instagram.com/Sawavo",
         ],
       },
       mainEntityOfPage: {
@@ -104,23 +104,23 @@ export const BlogSEO = ({
     return {
       "@context": "https://schema.org",
       "@type": "Blog",
-      name: locale === "ar" ? "مدونة سكينيور" : "Skinior Blog",
+      name: locale === "ar" ? "مدونة Sawavo" : "Sawavo Blog",
       description:
         locale === "ar"
-          ? "اكتشف أحدث نصائح العناية بالبشرة والمقالات المتخصصة من خبراء سكينيور"
+          ? "اكتشف أحدث نصائح العناية بالبشرة والمقالات المتخصصة من خبراء Sawavo"
           : "Discover expert insights and evidence-based guidance for healthier, more radiant skin",
       url: `${baseUrl}/${locale}/blog`,
       author: {
         "@type": "Organization",
-        name: "Skinior",
+        name: "Sawavo",
         url: baseUrl,
       },
       publisher: {
         "@type": "Organization",
-        name: "Skinior",
+        name: "Sawavo",
         logo: {
           "@type": "ImageObject",
-          url: `${baseUrl}/logos/skinior-logo-black.png`,
+          url: `${baseUrl}/logos/Sawavo-logo-black.png`,
         },
       },
       blogPost: posts.slice(0, 10).map((post) => ({
@@ -223,7 +223,7 @@ export const BlogSEO = ({
     return (
       <Head>
         {/* Basic Meta Tags */}
-        <title>{title} | Skinior</title>
+        <title>{title} | Sawavo</title>
         <meta name="description" content={description} />
         <meta
           name="keywords"
@@ -245,7 +245,7 @@ export const BlogSEO = ({
         <meta property="og:image:alt" content={getText(post.title)} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:site_name" content="Skinior" />
+        <meta property="og:site_name" content="Sawavo" />
         <meta
           property="og:locale"
           content={locale === "ar" ? "ar_SA" : "en_US"}
@@ -271,8 +271,8 @@ export const BlogSEO = ({
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={post.featuredImage} />
         <meta name="twitter:image:alt" content={getText(post.title)} />
-        <meta name="twitter:site" content="@skinior" />
-        <meta name="twitter:creator" content="@skinior" />
+        <meta name="twitter:site" content="@Sawavo" />
+        <meta name="twitter:creator" content="@Sawavo" />
 
         {/* Additional Meta Tags */}
         <meta name="theme-color" content="#3b82f6" />
@@ -319,12 +319,12 @@ export const BlogSEO = ({
   // Blog listing page SEO
   const title =
     locale === "ar"
-      ? "مدونة سكينيور - نصائح العناية بالبشرة"
-      : "Skinior Blog - Skincare Tips & Insights";
+      ? "مدونة Sawavo - نصائح العناية بالبشرة"
+      : "Sawavo Blog - Skincare Tips & Insights";
   const description =
     locale === "ar"
-      ? "اكتشف أحدث نصائح العناية بالبشرة والمقالات المتخصصة من خبراء سكينيور. نصائح فعالة للحصول على بشرة صحية ومشرقة."
-      : "Discover expert skincare insights, tips, and evidence-based guidance for healthier, more radiant skin from Skinior professionals.";
+      ? "اكتشف أحدث نصائح العناية بالبشرة والمقالات المتخصصة من خبراء Sawavo. نصائح فعالة للحصول على بشرة صحية ومشرقة."
+      : "Discover expert skincare insights, tips, and evidence-based guidance for healthier, more radiant skin from Sawavo professionals.";
   const blogUrl = `${baseUrl}/${locale}/blog`;
 
   return (
@@ -336,8 +336,8 @@ export const BlogSEO = ({
         name="keywords"
         content={
           locale === "ar"
-            ? "العناية بالبشرة, نصائح, مدونة, سكينيور"
-            : "skincare, tips, blog, beauty, skin health, Skinior"
+            ? "العناية بالبشرة, نصائح, مدونة, Sawavo"
+            : "skincare, tips, blog, beauty, skin health, Sawavo"
         }
       />
       <meta
@@ -353,7 +353,7 @@ export const BlogSEO = ({
       <meta property="og:url" content={blogUrl} />
       <meta property="og:image" content={`${baseUrl}/hero/hero1.webp`} />
       <meta property="og:image:alt" content={title} />
-      <meta property="og:site_name" content="Skinior" />
+      <meta property="og:site_name" content="Sawavo" />
       <meta
         property="og:locale"
         content={locale === "ar" ? "ar_SA" : "en_US"}
@@ -364,7 +364,7 @@ export const BlogSEO = ({
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={`${baseUrl}/hero/hero1.webp`} />
-      <meta name="twitter:site" content="@skinior" />
+      <meta name="twitter:site" content="@Sawavo" />
 
       {/* Structured Data */}
       <script

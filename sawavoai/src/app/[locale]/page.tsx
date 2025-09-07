@@ -28,8 +28,8 @@ export async function generateMetadata({
   const isRTL = locale === "ar";
 
   const title = isRTL
-    ? "سكينيور - حلول العناية بالبشرة المتقدمة بالذكاء الاصطناعي"
-    : "Skinior - Advanced AI-Powered Skincare Solutions";
+    ? "Sawavo - حلول العناية بالبشرة المتقدمة بالذكاء الاصطناعي"
+    : "Sawavo - Advanced AI-Powered Skincare Solutions";
 
   const description = isRTL
     ? "احصل على تحليل دقيق لبشرتك باستخدام الذكاء الاصطناعي وتوصيات مخصصة لمنتجات العناية بالبشرة. خدمة استشارات جلدية متقدمة مع أحدث التقنيات"
@@ -37,23 +37,23 @@ export async function generateMetadata({
 
   const localKeywords = jordanKeywords[locale as keyof typeof jordanKeywords];
   const keywords = isRTL
-    ? `سكينيور, العناية بالبشرة, الذكاء الاصطناعي, تحليل البشرة, منتجات التجميل, استشارات جلدية, العناية الشخصية, ${
+    ? `Sawavo, العناية بالبشرة, الذكاء الاصطناعي, تحليل البشرة, منتجات التجميل, استشارات جلدية, العناية الشخصية, ${
         localKeywords?.skincare || ""
       }`
-    : `Skinior, AI skincare, skin analysis, beauty products, dermatology consultation, personalized skincare, artificial intelligence, beauty technology, ${
+    : `Sawavo, AI skincare, skin analysis, beauty products, dermatology consultation, personalized skincare, artificial intelligence, beauty technology, ${
         localKeywords?.skincare || ""
       }`;
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://skinior.com";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://Sawavo.com";
   const homeUrl = `${baseUrl}/${locale}`;
 
   return {
     title,
     description,
     keywords,
-    authors: [{ name: "Skinior Team" }],
-    creator: "Skinior",
-    publisher: "Skinior",
+    authors: [{ name: "Sawavo Team" }],
+    creator: "Sawavo",
+    publisher: "Sawavo",
     category: "Beauty & Health",
     metadataBase: new URL(baseUrl),
 
@@ -61,7 +61,7 @@ export async function generateMetadata({
       title,
       description,
       url: homeUrl,
-      siteName: "Skinior",
+      siteName: "Sawavo",
       images: [
         {
           url: "/hero/hero1.webp",
@@ -80,8 +80,8 @@ export async function generateMetadata({
       title,
       description,
       images: ["/hero/hero1.webp"],
-      site: "@skinior",
-      creator: "@skinior",
+      site: "@Sawavo",
+      creator: "@Sawavo",
     },
 
     alternates: {
@@ -105,8 +105,8 @@ export async function generateMetadata({
     },
 
     other: {
-      "apple-mobile-web-app-title": "Skinior",
-      "application-name": "Skinior",
+      "apple-mobile-web-app-title": "Sawavo",
+      "application-name": "Sawavo",
       "mobile-web-app-capable": "yes",
       "apple-mobile-web-app-capable": "yes",
       "apple-mobile-web-app-status-bar-style": "default",
@@ -121,7 +121,7 @@ export default function HomePage({
 }) {
   const { locale } = use(params);
   const isRTL = locale === "ar";
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://skinior.com";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://Sawavo.com";
 
   // Enable static rendering
   setRequestLocale(locale);
@@ -131,8 +131,8 @@ export default function HomePage({
     return {
       "@context": "https://schema.org",
       "@type": "WebSite",
-      name: isRTL ? "سكينيور" : "Skinior",
-      alternateName: "Skinior AI Skincare",
+      name: isRTL ? "ساوافو" : "Sawavo",
+      alternateName: "Sawavo AI Skincare",
       url: `${baseUrl}/${locale}`,
       description: isRTL
         ? "احصل على تحليل دقيق لبشرتك باستخدام الذكاء الاصطناعي وتوصيات مخصصة لمنتجات العناية بالبشرة"
@@ -148,17 +148,17 @@ export default function HomePage({
         },
       ],
       sameAs: [
-        "https://facebook.com/skinior",
-        "https://twitter.com/skinior",
-        "https://instagram.com/skinior",
+        "https://facebook.com/Sawavo",
+        "https://twitter.com/Sawavo",
+        "https://instagram.com/Sawavo",
       ],
       publisher: {
         "@type": "Organization",
-        name: "Skinior",
+        name: "Sawavo",
         url: baseUrl,
         logo: {
           "@type": "ImageObject",
-          url: `${baseUrl}/logos/skinior-logo-black.png`,
+          url: `${baseUrl}/logos/Sawavo-black.png`,
           width: 200,
           height: 60,
         },
@@ -224,8 +224,6 @@ export default function HomePage({
       <FeaturedProducts />
       <ShopByCategory />
       <DealsSection />
-
-  
 
       {/* Local SEO for Jordan */}
       <LocalSEO locale={locale} />

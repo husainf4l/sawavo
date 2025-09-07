@@ -32,7 +32,6 @@ Disallow: /*/login
 Disallow: /*/signup
 Disallow: /*/checkout
 Disallow: /*/dashboard
-Disallow: /*/room
 
 # Block crawling of internal Next.js files
 Disallow: /_next/
@@ -42,4 +41,4 @@ Disallow: /*.js.map$
 Disallow: /*.css.map$
 
 # Sitemap location
-Sitemap: https://skinior.com/sitemap.xml
+Sitemap: https://Sawavo.com/sitemap.xml
