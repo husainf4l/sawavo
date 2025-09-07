@@ -38,5 +38,15 @@ testem.log
 /typings
 
 # System files
+
+# Python virtual environments and cache
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+__pycache__/
+*.py[cod]
 .DS_Store
 Thumbs.db
