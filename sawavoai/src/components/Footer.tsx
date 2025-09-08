@@ -16,11 +16,7 @@ const Footer = () => {
           <div className="col-span-1 md:col-span-2">
             <div className="mb-4">
               <Image
-                src={
-                  locale === "ar"
-                    ? "/logos/Sawavo-logo-black-ar.png"
-                    : "/logos/Sawavo-logo-black.png"
-                }
+                src="/logos/sawavo-black.png"
                 alt="Sawavo"
                 width={120}
                 height={37}

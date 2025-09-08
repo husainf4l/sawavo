@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
   productionBrowserSourceMaps: process.env.NEXT_PUBLIC_ENABLE_SOURCE_MAPS === 'true',
 
   // Allow cross-origin requests from your domain during development
-  allowedDevOrigins: ['Sawavo.com', 'www.Sawavo.com'],
+  allowedDevOrigins: ['sawavo.com', 'www.sawavo.com'],
 
   // Fix cross-origin warnings for better development experience
   async headers() {
@@ -190,6 +190,9 @@ const nextConfig: NextConfig = {
   images: {
     // Modern formats for better compression
     formats: ['image/avif', 'image/webp'],
+
+    // Quality settings for different sizes
+    qualities: [75, 85, 95],
 
     // Responsive breakpoints optimized for e-commerce
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],

@@ -28,11 +28,7 @@ const ResourceHints = memo(({ locale }: ResourceHintsProps) => {
       <link
         rel="preload"
         as="image"
-        href={
-          locale === "ar"
-            ? "/logos/Sawavo-logo-black-ar.png"
-            : "/logos/Sawavo-logo-black.png"
-        }
+        href="/logos/sawavo-black.png"
         fetchPriority="high"
       />
 

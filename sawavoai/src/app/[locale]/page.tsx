@@ -158,7 +158,7 @@ export default function HomePage({
         url: baseUrl,
         logo: {
           "@type": "ImageObject",
-          url: `${baseUrl}/logos/Sawavo-black.png`,
+          url: `${baseUrl}/logos/sawavo-black.png`,
           width: 200,
           height: 60,
         },
@@ -224,8 +224,6 @@ export default function HomePage({
       <FeaturedProducts />
       <ShopByCategory />
       <DealsSection />
-
-      {/* Local SEO for Jordan */}
       <LocalSEO locale={locale} />
     </>
   );

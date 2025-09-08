@@ -36,7 +36,7 @@ export default function LocalSEO({ locale, businessInfo }: LocalSEOProps) {
       "@id": `${baseUrl}/#organization`,
       name: business.name,
       image: [
-        `${baseUrl}/logos/Sawavo-black.png`,
+        `${baseUrl}/logos/sawavo-black.png`,
         `${baseUrl}/hero/hero1.webp`,
       ],
       description: isRTL

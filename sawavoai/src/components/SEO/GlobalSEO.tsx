@@ -142,7 +142,7 @@ export default function GlobalSEO({
             "@type": "Organization",
             name: "Sawavo",
             url: baseUrl,
-            logo: `${baseUrl}/logos/Sawavo-black.png`,
+            logo: `${baseUrl}/logos/sawavo-black.png`,
             description:
               "Professional skincare solutions with AI-powered analysis",
             sameAs: [

@@ -1,8 +1,8 @@
 module.exports = {
   apps: [
     {
-      name: 'Sawavoai',
-      cwd: '/home/husain/Sawavo/Sawavoai',
+      name: 'sawavoai',
+      cwd: '/home/husain/sawavo/sawavoai',
       script: 'npm',
       args: 'run start',
       instances: 1,
@@ -17,8 +17,8 @@ module.exports = {
     },
     {
       // PM2 entry for local development (runs `npm run dev`)
-      name: 'Sawavoai-dev',
-      cwd: '/home/husain/Sawavo/Sawavoai',
+      name: 'sawavoai-dev',
+      cwd: '/home/husain/sawavo/sawavoai',
       script: 'npm',
       args: 'run dev',
       instances: 1,
@@ -28,7 +28,7 @@ module.exports = {
       max_memory_restart: '1G',
       env: {
         NODE_ENV: 'development',
-        PORT: 3000,
+        PORT: 3003,
       },
     },
   ],

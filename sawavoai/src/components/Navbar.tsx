@@ -63,7 +63,7 @@ const Navbar = () => {
               className="flex-shrink-0 hover:opacity-75 transition-opacity duration-200"
             >
               <Image
-                src="/logos/Sawavo-black.png"
+                src="/logos/sawavo-black.png"
                 alt="Sawavo"
                 width={90}
                 height={28}

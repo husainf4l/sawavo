@@ -1,9 +1,9 @@
 {
-  "name": "Sawavoai",
+  "name": "sawavoai",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo",
+    "dev": "next dev -p 3003 --turbo",
     "build": "next build",
     "build:analyze": "ANALYZE=true next build",
     "build:profile": "next build --profile",
@@ -12,7 +12,7 @@
     "analyze": "ANALYZE=true next build",
     "security": "npm audit",
     "type-check": "tsc --noEmit",
-    "performance:audit": "lighthouse http://localhost:3000 --output=html --output-path=./lighthouse-report.html",
+    "performance:audit": "lighthouse http://localhost:3003 --output=html --output-path=./lighthouse-report.html",
     "clean": "rm -rf .next out node_modules/.cache"
   },
   "dependencies": {
@@ -20,7 +20,7 @@
     "@heroicons/react": "^2.2.0",
     "critters": "^0.0.23",
     "isomorphic-dompurify": "^2.26.0",
-    "next": "15.4.6",
+    "next": "15.5.2",
     "next-intl": "^4.3.4",
     "react": "19.1.0",
     "react-dom": "19.1.0",

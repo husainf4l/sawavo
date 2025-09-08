@@ -286,7 +286,7 @@ function SidebarContent({
           <div className={`ml-3 ${isRTL ? "mr-3 ml-0" : ""}`}>
             <Image
               src={
-                isRTL ? "/logos/Sawavo-black.png" : "/logos/Sawavo-black.png"
+                isRTL ? "/logos/sawavo-black.png" : "/logos/sawavo-black.png"
               }
               alt="Sawavo"
               width={140}

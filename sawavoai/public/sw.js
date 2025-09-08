@@ -8,10 +8,8 @@ const STATIC_ASSETS = [
   '/',
   '/manifest.json',
   '/robots.txt',
-  '/logos/Sawavo-logo-black.png',
-  '/logos/Sawavo-logo-black-ar.png',
-  '/logos/Sawavo-logo-white.png',
-  '/logos/Sawavo-logo-white-ar.png',
+  '/logos/sawavo-black.png',
+  '/logos/sawavo-white.png',
   '/hero/hero1.webp',
   '/hero/hero2.webp',
 ];
@@ -435,8 +433,8 @@ self.addEventListener('push', (event) => {
 
   const options = {
     body: event.data ? event.data.text() : 'New content available!',
-    icon: '/logos/Sawavo-logo-black.png',
-    badge: '/logos/Sawavo-logo-black.png',
+    icon: '/logos/sawavo-black.png',
+    badge: '/logos/sawavo-black.png',
     vibrate: [100, 50, 100],
     data: {
       dateOfArrival: Date.now(),
@@ -446,12 +444,12 @@ self.addEventListener('push', (event) => {
       {
         action: 'explore',
         title: 'Read Now',
-        icon: '/logos/Sawavo-logo-black.png'
+        icon: '/logos/sawavo-black.png'
       },
       {
         action: 'close',
         title: 'Close',
-        icon: '/logos/Sawavo-logo-black.png'
+        icon: '/logos/sawavo-black.png'
       }
     ]
   };

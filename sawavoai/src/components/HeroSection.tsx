@@ -18,20 +18,41 @@ const HeroSection = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const [videoError, setVideoError] = useState(false);
 
   const isRTL = locale === "ar";
 
+  // Ensure component is mounted to prevent hydration errors
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   // Detect mobile device for optimizations
   useEffect(() => {
+    if (!isMounted) return;
+
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
 
     checkMobile();
-    window.addEventListener("resize", checkMobile, { passive: true });
 
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+    const handleResize = () => {
+      checkMobile();
+    };
+
+    window.addEventListener("resize", handleResize, { passive: true });
+
+    return () => {
+      try {
+        window.removeEventListener("resize", handleResize);
+      } catch (error) {
+        console.warn("Resize listener cleanup warning:", error);
+      }
+    };
+  }, [isMounted]);
 
   // Memoize hero images with mobile prioritization
   const heroImages = useMemo(
@@ -41,35 +62,49 @@ const HeroSection = () => {
 
   // Memoize scroll handler to prevent recreating function
   const handleScrollToNext = useCallback(() => {
-    const nextSection =
-      document.querySelector("#features") ||
-      document.querySelector("section:nth-of-type(2)") ||
-      document.querySelector("main > *:nth-child(2)");
-    if (nextSection) {
-      nextSection.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    } else {
-      // Fallback: scroll by viewport height
-      window.scrollTo({
-        top: window.innerHeight,
-        behavior: "smooth",
-      });
+    if (!isMounted) return;
+
+    try {
+      const nextSection =
+        document.querySelector("#features") ||
+        document.querySelector("section:nth-of-type(2)") ||
+        document.querySelector("main > *:nth-child(2)");
+      if (nextSection) {
+        nextSection.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      } else {
+        // Fallback: scroll by viewport height
+        window.scrollTo({
+          top: window.innerHeight,
+          behavior: "smooth",
+        });
+      }
+    } catch (error) {
+      console.warn("Scroll operation warning:", error);
     }
-  }, []);
+  }, [isMounted]);
 
   // Handle navigation to shop page
   const handleGetAnalysis = useCallback(() => {
-    router.push(`/${locale}/shop`);
-  }, [router, locale]);
+    if (!isMounted) return;
+
+    try {
+      router.push(`/${locale}/shop`);
+    } catch (error) {
+      console.warn("Navigation warning:", error);
+    }
+  }, [router, locale, isMounted]);
 
   // Optimized mouse move handler - disabled on mobile for performance
   useEffect(() => {
-    if (!isLoaded || isMobile) return; // Skip on mobile for better performance
+    if (!isMounted || !isLoaded || isMobile) return; // Skip on mobile for better performance
 
     let timeoutId: NodeJS.Timeout;
+    let loadTimeoutId: NodeJS.Timeout;
     let isThrottled = false;
+    let hasInteracted = false;
 
     const handleMouseMove = (e: MouseEvent) => {
       if (isThrottled) return;
@@ -92,45 +127,66 @@ const HeroSection = () => {
       });
     };
 
+    const initMouseTracking = () => {
+      if (!hasInteracted) {
+        hasInteracted = true;
+        window.addEventListener("mousemove", handleMouseMove, {
+          passive: true,
+          capture: false,
+        });
+      }
+    };
+
+    const handleClick = () => {
+      initMouseTracking();
+      window.removeEventListener("click", handleClick);
+      window.removeEventListener("scroll", handleScroll);
+    };
+
+    const handleScroll = () => {
+      initMouseTracking();
+      window.removeEventListener("click", handleClick);
+      window.removeEventListener("scroll", handleScroll);
+    };
+
     // Delay mouse move listener to not interfere with LCP and FCP
-    const loadTimeoutId = setTimeout(() => {
-      // Only add if user is actively interacting (reduce idle CPU usage)
-      let hasInteracted = false;
-
-      const initMouseTracking = () => {
-        if (!hasInteracted) {
-          hasInteracted = true;
-          window.addEventListener("mousemove", handleMouseMove, {
-            passive: true,
-            capture: false,
-          });
-          // Remove the init listeners
-          window.removeEventListener("click", initMouseTracking);
-          window.removeEventListener("scroll", initMouseTracking);
-        }
-      };
-
+    loadTimeoutId = setTimeout(() => {
       // Only start tracking after user interaction
-      window.addEventListener("click", initMouseTracking, { once: true });
-      window.addEventListener("scroll", initMouseTracking, { once: true });
+      window.addEventListener("click", handleClick, { once: true });
+      window.addEventListener("scroll", handleScroll, { once: true });
     }, 5000); // Wait 5 seconds after component load
 
     return () => {
       clearTimeout(loadTimeoutId);
       clearTimeout(timeoutId);
-      window.removeEventListener("mousemove", handleMouseMove);
+      // Safe cleanup - check if listeners exist before removing
+      try {
+        window.removeEventListener("mousemove", handleMouseMove);
+        window.removeEventListener("click", handleClick);
+        window.removeEventListener("scroll", handleScroll);
+      } catch (error) {
+        // Silently catch any cleanup errors
+        console.warn("Event listener cleanup warning:", error);
+      }
     };
-  }, [isLoaded, isMobile]);
+  }, [isMounted, isLoaded, isMobile]);
 
   // Mark as loaded after mount to enable interactions
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoaded(true), 100);
-    return () => clearTimeout(timer);
-  }, []);
+    if (!isMounted) return;
+
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 100);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [isMounted]);
 
   // Optimized image carousel - longer intervals on mobile
   useEffect(() => {
-    if (!isLoaded) return;
+    if (!isMounted || !isLoaded) return;
 
     const interval = setInterval(
       () => {
@@ -143,62 +199,200 @@ const HeroSection = () => {
       isMobile ? 8000 : 6000
     ); // Longer intervals on mobile for better performance
 
-    return () => clearInterval(interval);
-  }, [heroImages.length, isLoaded, isMobile]);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [heroImages.length, isMounted, isLoaded, isMobile]);
+
+  // Don't render anything until mounted to prevent hydration errors
+  if (!isMounted) {
+    return (
+      <section
+        className={`hero-section relative h-[80vh] flex items-center justify-center overflow-hidden ${
+          isRTL ? "rtl font-cairo" : "ltr"
+        }`}
+        dir={isRTL ? "rtl" : "ltr"}
+      >
+        {/* Static content for SSR */}
+        <div className="w-full max-w-6xl mx-auto px-6 lg:px-8 py-32">
+          <div className="text-center max-w-4xl mx-auto">
+            <div className="opacity-100 mb-16">
+              <div
+                className={`inline-flex items-center gap-3 px-6 py-3 bg-white/90 backdrop-blur-sm border border-gray-200/50 text-gray-700 rounded-full text-sm font-medium shadow-lg ${
+                  isRTL ? "flex-row-reverse font-cairo" : ""
+                }`}
+              >
+                <div className="w-2 h-2 bg-rose-500 rounded-full" />
+                <span className="tracking-wider font-medium">
+                  {isRTL
+                    ? "150+ علامة جمال عالمية • 25,000+ منتج جمال • توصيل سريع"
+                    : "150+ Global Beauty Brands • 25,000+ Beauty Products • Fast Delivery"}
+                </span>
+              </div>
+            </div>
+
+            <div className="space-y-8 mb-16">
+              <h1
+                className={`${
+                  isRTL
+                    ? "text-5xl lg:text-7xl font-cairo font-light text-slate-800 leading-[1.1] tracking-tight"
+                    : "text-5xl lg:text-7xl font-light text-slate-800 leading-[1.1] tracking-tight"
+                }`}
+              >
+                {isRTL ? (
+                  <>
+                    <span className="block mb-6 text-slate-600 font-extralight">
+                      الجمال
+                    </span>
+                    <span className="block bg-gradient-to-r from-blue-600 via-indigo-600 to-slate-700 bg-clip-text text-transparent font-medium">
+                      في أرقى أشكاله
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <span className="block mb-6 text-slate-600 font-extralight">
+                      Beauty
+                    </span>
+                    <span className="block bg-gradient-to-r from-blue-600 via-indigo-600 to-slate-700 bg-clip-text text-transparent font-medium">
+                      Elevated
+                    </span>
+                  </>
+                )}
+              </h1>
+
+              <p
+                className={`text-xl lg:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-light ${
+                  isRTL ? "font-cairo" : ""
+                }`}
+              >
+                {isRTL
+                  ? "منصة الجمال الرائدة في المنطقة، نقدم لك أحدث المنتجات من أشهر العلامات التجارية العالمية مع خدمة استشارية متخصصة وتوصيل سريع"
+                  : "The region's premier beauty destination, featuring the latest products from world-renowned brands with expert consultation and lightning-fast delivery"}
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-20">
+              <button
+                className={`bg-gradient-to-r from-blue-600 to-indigo-700 text-white hover:from-blue-700 hover:to-indigo-800 px-12 py-5 rounded-full text-lg font-semibold transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-2xl ${
+                  isRTL ? "font-cairo" : ""
+                }`}
+              >
+                {isRTL
+                  ? "اكتشفي المجموعة المميزة"
+                  : "Explore Premium Collection"}
+              </button>
+
+              <button
+                className={`bg-white border-2 border-slate-300 text-slate-700 hover:bg-slate-50 hover:border-slate-400 px-12 py-5 rounded-full text-lg font-semibold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl ${
+                  isRTL ? "font-cairo" : ""
+                }`}
+              >
+                {isRTL ? "تسوقي الآن" : "Shop Now"}
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section
-      className={`hero-section relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-white ${
+      className={`hero-section relative min-h-[90vh] flex items-center justify-center overflow-hidden ${
         isRTL ? "rtl font-cairo" : "ltr"
       }`}
       dir={isRTL ? "rtl" : "ltr"}
     >
-      {/* Optimized Background - Marketing Focused */}
-      {isLoaded && (
-        <div className="absolute inset-0">
-          <div
-            className="absolute inset-0 bg-gradient-to-br from-rose-50/40 via-white to-pink-50/30 will-change-transform"
-            style={{
-              transform: `translate3d(${mousePosition.x * 0.01}px, ${
-                mousePosition.y * 0.01
-              }px, 0)`,
-            }}
-          />
-          {/* Subtle pattern overlay */}
-          <div className="absolute inset-0 opacity-5">
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-rose-100/20 to-transparent transform -skew-y-12"></div>
-          </div>
-        </div>
-      )}
-
-      {/* Hero Content */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8 py-20">
-        <div
-          className={`grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center ${
-            isRTL ? "lg:grid-flow-col-dense" : ""
-          }`}
-        >
+      {/* Main Content Container - Centered */}
+      <div className="w-full max-w-7xl mx-auto px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Text Content */}
-          <div
-            className={`space-y-8 ${
-              isRTL
-                ? "lg:order-2 text-center lg:text-right"
-                : "order-2 lg:order-1 text-center lg:text-left"
-            }`}
-          >
-            {/* Compelling Marketing Badge */}
-            <div className="opacity-100 animate-fade-in">
+          <div className="order-2 lg:order-1 text-center lg:text-left">
+            {/* Professional Badge */}
+            <div className="mb-8">
               <div
-                className={`inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-rose-50 to-pink-50 border border-rose-200 text-rose-700 rounded-full text-sm font-semibold shadow-sm ${
+                className={`inline-flex items-center gap-3 px-6 py-3 bg-white/90 backdrop-blur-sm border border-gray-200/50 text-gray-700 rounded-full text-sm font-medium shadow-lg ${
                   isRTL ? "flex-row-reverse font-cairo" : ""
                 }`}
               >
-                <div className="w-2 h-2 bg-rose-500 rounded-full animate-pulse shadow-sm" />
-                <span className="tracking-wide">
+                <div
+                  className={`w-2 h-2 bg-rose-500 rounded-full ${
+                    isLoaded ? "animate-pulse" : ""
+                  }`}
+                />
+                <span className="tracking-wide font-medium">
                   {isRTL
-                    ? "اكتشاف جديد: نتائج مضمونة في 30 يوم"
-                    : "New Discovery: Guaranteed Results in 30 Days"}
+                    ? "150+ علامة جمال عالمية • 25,000+ منتج جمال"
+                    : "150+ Global Beauty Brands • 25,000+ Beauty Products"}
                 </span>
+              </div>
+            </div>
+
+            {/* Professional Headline */}
+            <div className="space-y-6 mb-8">
+              <h1
+                className={`${
+                  isRTL
+                    ? "text-4xl lg:text-6xl font-cairo font-light text-gray-900 leading-[1.1] tracking-tight"
+                    : "text-4xl lg:text-6xl font-light text-gray-900 leading-[1.1] tracking-tight"
+                }`}
+              >
+                {isRTL ? (
+                  <>
+                    <span className="block mb-4 text-gray-600 font-extralight">
+                      اكتشفي
+                    </span>
+                    <span className="block bg-gradient-to-r from-rose-600 via-pink-500 to-purple-600 bg-clip-text text-transparent font-medium">
+                      جمالك الحقيقي
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <span className="block mb-4 text-gray-600 font-extralight">
+                      Discover
+                    </span>
+                    <span className="block bg-gradient-to-r from-rose-600 via-pink-500 to-purple-600 bg-clip-text text-transparent font-medium">
+                      Your True Beauty
+                    </span>
+                  </>
+                )}
+              </h1>
+
+              <p
+                className={`text-lg text-gray-600 leading-relaxed font-light ${
+                  isRTL ? "font-cairo" : ""
+                }`}
+              >
+                {isRTL
+                  ? "منصة الجمال الرائدة في المنطقة - منتجات مكياج، عناية بالبشرة، عطور، وأكثر من 150 علامة تجارية عالمية"
+                  : "The region's premier beauty destination - makeup, skincare, fragrances, and more from 150+ global brands"}
+              </p>
+            </div>
+
+            {/* Professional CTAs */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
+              <button
+                onClick={handleGetAnalysis}
+                className={`bg-rose-600 text-white hover:bg-rose-700 px-8 py-4 rounded-full text-base font-semibold transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl ${
+                  isRTL ? "font-cairo" : ""
+                }`}
+              >
+                {isRTL ? "اكتشفي المنتجات" : "Explore Products"}
+              </button>
+
+              <button
+                onClick={() => router.push(`/${locale}/products`)}
+                className={`bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400 px-8 py-4 rounded-full text-base font-semibold transition-all duration-200 hover:scale-105 shadow-md hover:shadow-lg ${
+                  isRTL ? "font-cairo" : ""
+                }`}
+              >
+                {isRTL ? "تسوقي الآن" : "Shop Now"}
+              </button>
+            </div>
+
+            {/* Professional Trust Indicators */}
+            <div className="flex flex-wrap justify-center lg:justify-start items-center gap-6 lg:gap-8 text-sm text-gray-600">
+              <div className="flex items-center gap-2">
                 <svg
                   className="w-4 h-4 text-rose-500"
                   fill="currentColor"
@@ -206,396 +400,104 @@ const HeroSection = () => {
                 >
                   <path
                     fillRule="evenodd"
-                    d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                     clipRule="evenodd"
                   />
                 </svg>
+                <span className={`font-medium ${isRTL ? "font-cairo" : ""}`}>
+                  {isRTL ? "منتجات أصلية" : "100% Authentic"}
+                </span>
               </div>
-            </div>
-
-            {/* Main Headline - Marketing Focused */}
-            <div className="space-y-6">
-              <h1
-                className={`${
-                  isRTL
-                    ? "text-5xl lg:text-7xl font-cairo font-extralight text-gray-900 leading-[1.1] tracking-wide"
-                    : "text-5xl lg:text-7xl font-extralight text-gray-900 leading-[1.1] tracking-tight"
-                }`}
-              >
-                {isRTL ? (
-                  <>
-                    <span className="block mb-2 text-gray-800">
-                      احصلي على بشرة
-                    </span>
-                    <span className="block text-rose-600 font-normal">
-                      مثالية في 30 يوم
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    <span className="block mb-2 text-gray-800">
-                      Get Perfect Skin
-                    </span>
-                    <span className="block text-rose-600 font-normal">
-                      in Just 30 Days
-                    </span>
-                  </>
-                )}
-              </h1>
-
-              <p
-                className={`text-xl lg:text-2xl text-gray-600 max-w-2xl leading-relaxed font-light ${
-                  isRTL ? "font-cairo mx-auto lg:mx-0" : "mx-auto lg:mx-0"
-                }`}
-              >
-                {isRTL
-                  ? "اكتشفي سر البشرة المشرقة مع منتجاتنا الطبيعية 100%. نتائج سريعة، آمنة، ومضمونة مع استرداد أموالك في 60 يوم"
-                  : "Discover the secret to radiant skin with our 100% natural products. Fast, safe, and guaranteed results with 60-day money-back promise"}
-              </p>
-            </div>
-
-            {/* Marketing-Focused CTAs */}
-            <div className="pt-6">
-              <div className="flex flex-col sm:flex-row gap-4 mb-6">
-                <button
-                  onClick={handleGetAnalysis}
-                  className={`bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 hover:shadow-xl shadow-lg hover:scale-105 ${
-                    isRTL ? "font-cairo" : ""
-                  }`}
+              <div className="flex items-center gap-2">
+                <svg
+                  className="w-4 h-4 text-rose-500"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
                 >
-                  <span className="flex items-center gap-3">
-                    {isRTL ? "ابدأي رحلتك الآن" : "Start Your Journey"}
-                    <svg
-                      className="w-5 h-5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M13 7l5 5m0 0l-5 5m5-5H6"
-                      />
-                    </svg>
-                  </span>
-                </button>
-
-                <button
-                  onClick={() => router.push(`/${locale}/products`)}
-                  className={`bg-white border-2 border-rose-200 hover:border-rose-300 text-rose-600 px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 hover:shadow-lg hover:bg-rose-50 ${
-                    isRTL ? "font-cairo" : ""
-                  }`}
-                >
-                  {isRTL ? "استكشفي المنتجات" : "Explore Products"}
-                </button>
+                  <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
+                </svg>
+                <span className={`font-medium ${isRTL ? "font-cairo" : ""}`}>
+                  {isRTL ? "توصيل سريع" : "Fast Delivery"}
+                </span>
               </div>
-
-              {/* Urgency & Social Proof */}
-              <div className="bg-gradient-to-r from-rose-50 to-pink-50 rounded-2xl p-6 border border-rose-100">
-                <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                  <div className="flex items-center gap-4">
-                    <div className="flex -space-x-2">
-                      <div className="w-8 h-8 bg-rose-400 rounded-full border-2 border-white"></div>
-                      <div className="w-8 h-8 bg-pink-400 rounded-full border-2 border-white"></div>
-                      <div className="w-8 h-8 bg-purple-400 rounded-full border-2 border-white"></div>
-                      <div className="w-8 h-8 bg-gradient-to-r from-rose-400 to-pink-400 rounded-full border-2 border-white flex items-center justify-center text-white text-xs font-bold">
-                        +
-                      </div>
-                    </div>
-                    <div>
-                      <div
-                        className={`text-sm font-semibold text-gray-900 ${
-                          isRTL ? "font-cairo" : ""
-                        }`}
-                      >
-                        {isRTL
-                          ? "انضمي لأكثر من 10,000 عميل راضي"
-                          : "Join 10,000+ Happy Customers"}
-                      </div>
-                      <div className="flex items-center gap-1 mt-1">
-                        <div className="flex text-yellow-400">
-                          {[...Array(5)].map((_, i) => (
-                            <svg
-                              key={i}
-                              className="w-4 h-4 fill-current"
-                              viewBox="0 0 20 20"
-                            >
-                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                            </svg>
-                          ))}
-                        </div>
-                        <span className="text-sm text-gray-600 ml-1">
-                          4.9/5
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-6 text-sm text-gray-600">
-                    <div className="flex items-center gap-2">
-                      <svg
-                        className="w-5 h-5 text-green-600"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                      <span
-                        className={`font-medium ${isRTL ? "font-cairo" : ""}`}
-                      >
-                        {isRTL ? "ضمان 60 يوم" : "60-Day Guarantee"}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <svg
-                        className="w-5 h-5 text-blue-600"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                      <span
-                        className={`font-medium ${isRTL ? "font-cairo" : ""}`}
-                      >
-                        {isRTL ? "توصيل مجاني" : "Free Shipping"}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Marketing Stats */}
-            <div className="grid grid-cols-3 gap-8 pt-16 border-t border-gray-200">
-              <div
-                className={`text-center group ${
-                  isRTL ? "lg:text-right" : "lg:text-left"
-                }`}
-              >
-                <div className="flex items-center justify-center mb-4">
-                  <div className="w-16 h-16 bg-gradient-to-br from-rose-100 to-pink-100 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-sm">
-                    <svg
-                      className="w-8 h-8 text-rose-600"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                </div>
-                <div className="text-4xl font-bold mb-2 bg-gradient-to-r from-rose-600 to-pink-600 bg-clip-text text-transparent">
-                  98%
-                </div>
-                <div
-                  className={`text-sm text-gray-600 font-semibold uppercase tracking-wide ${
-                    isRTL ? "font-cairo" : ""
-                  }`}
+              <div className="flex items-center gap-2">
+                <svg
+                  className="w-4 h-4 text-rose-500"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
                 >
-                  {isRTL ? "رضا العملاء" : "Customer Satisfaction"}
-                </div>
-              </div>
-              <div
-                className={`text-center group ${
-                  isRTL ? "lg:text-right" : "lg:text-left"
-                }`}
-              >
-                <div className="flex items-center justify-center mb-4">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-sm">
-                    <svg
-                      className="w-8 h-8 text-blue-600"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M4 2a2 2 0 00-2 2v11a3 3 0 106 0V4a2 2 0 00-2-2H4zm1 14a1 1 0 100-2 1 1 0 000 2zm5-1.757l4.9-4.9a2 2 0 000-2.828L13.485 5.1a2 2 0 00-2.828 0L10 5.757v8.486zM16 18H9.071l6-6H16a2 2 0 012 2v2a2 2 0 01-2 2z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                </div>
-                <div className="text-4xl font-bold mb-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  25K+
-                </div>
-                <div
-                  className={`text-sm text-gray-600 font-semibold uppercase tracking-wide ${
-                    isRTL ? "font-cairo" : ""
-                  }`}
-                >
-                  {isRTL ? "منتج مباع" : "Products Sold"}
-                </div>
-              </div>
-              <div
-                className={`text-center group ${
-                  isRTL ? "lg:text-right" : "lg:text-left"
-                }`}
-              >
-                <div className="flex items-center justify-center mb-4">
-                  <div className="w-16 h-16 bg-gradient-to-br from-yellow-100 to-orange-100 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-sm">
-                    <svg
-                      className="w-8 h-8 text-yellow-600"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  </div>
-                </div>
-                <div className="text-4xl font-bold mb-2 bg-gradient-to-r from-yellow-600 to-orange-600 bg-clip-text text-transparent flex items-center justify-center gap-1">
-                  4.9
-                  <svg
-                    className="w-6 h-6 text-yellow-500"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                </div>
-                <div
-                  className={`text-sm text-gray-600 font-semibold uppercase tracking-wide ${
-                    isRTL ? "font-cairo" : ""
-                  }`}
-                >
-                  {isRTL ? "تقييم المنتجات" : "Product Rating"}
-                </div>
+                  <path
+                    fillRule="evenodd"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                <span className={`font-medium ${isRTL ? "font-cairo" : ""}`}>
+                  {isRTL ? "استشارة مجانية" : "Free Consultation"}
+                </span>
               </div>
             </div>
           </div>
 
-          {/* Optimized Image Section */}
-          <div
-            className={`relative ${
-              isRTL ? "lg:order-1" : "order-1 lg:order-2"
-            }`}
-          >
-            <div className="relative aspect-[3/4] max-w-sm lg:max-w-md mx-auto">
-              {/* Clean Image Container with performance optimizations */}
-              <div className="relative w-full h-full rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl shadow-gray-900/10 bg-white will-change-contents">
-                {/* Primary hero image - mobile-optimized for Speed Index */}
-                <Image
-                  src={heroImages[0]}
-                  alt={
-                    isRTL
-                      ? "تحليل احترافي للبشرة"
-                      : "Professional skin analysis"
-                  }
-                  fill
-                  className="object-cover object-center transition-opacity duration-500"
-                  priority
-                  loading="eager"
-                  sizes="(max-width: 640px) 90vw, (max-width: 768px) 80vw, (max-width: 1024px) 40vw, 35vw"
-                  quality={85} // Optimized quality for LCP
-                  fetchPriority="high"
-                  placeholder="blur"
-                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
-                />
-
-                {/* Secondary images - loaded with lower priority */}
-                {isLoaded &&
-                  heroImages.slice(1).map((imageSrc, index) => (
-                    <Image
-                      key={imageSrc}
-                      src={imageSrc}
-                      alt={
-                        isRTL
-                          ? "تحليل احترافي للبشرة"
-                          : "Professional skin analysis"
-                      }
-                      fill
-                      className={`object-cover object-center transition-opacity duration-500 ${
-                        index + 1 === currentImageIndex
-                          ? "opacity-100 z-10"
-                          : "opacity-0 z-0"
-                      }`}
-                      loading="lazy"
-                      sizes="(max-width: 640px) 95vw, (max-width: 768px) 90vw, (max-width: 1024px) 45vw, 30vw"
-                      quality={isMobile ? 60 : 70} // Lower quality for secondary images
-                      fetchPriority="low"
-                      placeholder="blur"
-                      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
-                    />
-                  ))}
-
-                {/* Subtle overlay - only render if loaded */}
-                {isLoaded && (
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent z-20" />
-                )}
-              </div>
-
-              {/* Optimized floating indicator */}
-              <div
-                className={`absolute top-4 lg:top-6 flex items-center gap-2 bg-white/95 backdrop-blur-sm px-3 lg:px-4 py-2 rounded-full shadow-lg z-30 ${
-                  isRTL
-                    ? "right-4 lg:right-6 flex-row-reverse"
-                    : "left-4 lg:left-6"
-                }`}
+          {/* Video Content */}
+          <div className="order-1 lg:order-2 flex justify-center">
+            <div className="w-full max-w-[600px] h-[50vh] max-h-[400px] rounded-2xl overflow-hidden shadow-2xl border border-white/30">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                className="w-full h-full object-cover"
+                poster="/hero/hero1.webp"
+                style={{
+                  display: isMobile || videoError ? "none" : "block",
+                }}
+                onLoadedData={() => setVideoLoaded(true)}
+                onError={() => setVideoError(true)}
               >
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                <span
-                  className={`text-xs font-medium text-gray-800 ${
-                    isRTL ? "font-cairo" : ""
-                  }`}
-                >
-                  {isRTL ? "أفضل مبيعات" : "Best Seller"}
-                </span>
-              </div>
+                <source src="/hero/Works.webm" type="video/webm" />
+              </video>
 
-              {/* Image indicators */}
-              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-30">
-                {heroImages.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentImageIndex(index)}
-                    className={`min-w-[44px] min-h-[44px] w-11 h-11 rounded-full transition-all duration-300 flex items-center justify-center ${
-                      index === currentImageIndex
-                        ? "bg-white/90 shadow-md"
-                        : "bg-white/50 hover:bg-white/70"
-                    }`}
-                    aria-label={`View image ${index + 1}`}
-                  >
-                    <div
-                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                        index === currentImageIndex
-                          ? "bg-gray-900"
-                          : "bg-gray-600"
-                      }`}
-                    />
-                  </button>
-                ))}
-              </div>
+              {/* Fallback image for mobile and video errors */}
+              <div
+                className="w-full h-full bg-cover bg-center bg-no-repeat rounded-2xl"
+                style={{
+                  backgroundImage: "url('/hero/hero1.webp')",
+                  display: isMobile || videoError ? "block" : "none",
+                }}
+              />
+
+              {/* Professional video overlay for better text readability */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-black/5 rounded-2xl" />
             </div>
           </div>
         </div>
       </div>
 
-      {/* Minimal scroll indicator */}
+      {/* Professional Scroll Indicator */}
       <button
         onClick={handleScrollToNext}
-        className="absolute bottom-6 left-1/2 transform -translate-x-1/2 opacity-40 hover:opacity-80 focus:outline-none group"
+        className="absolute bottom-6 left-1/2 transform -translate-x-1/2 opacity-60 hover:opacity-100 focus:outline-none group transition-all duration-200"
         aria-label={isRTL ? "انتقل للأسفل" : "Scroll down"}
       >
         <div className="flex flex-col items-center gap-2">
-          <div className="w-px h-8 bg-gray-300 group-hover:bg-gray-400" />
-          <svg
-            className="w-4 h-4 text-gray-400 group-hover:text-gray-600"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path
-              fillRule="evenodd"
-              d="M10 12.586l4.293-4.293a1 1 0 111.414 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 111.414-1.414L10 12.586z"
-              clipRule="evenodd"
-            />
-          </svg>
+          <div className="w-px h-8 bg-gray-300 group-hover:bg-gray-400 transition-colors duration-200" />
+          <div className="w-5 h-5 rounded-full border border-gray-300 group-hover:border-gray-400 bg-white/90 backdrop-blur-sm flex items-center justify-center transition-all duration-200 group-hover:scale-105 shadow-sm">
+            <svg
+              className="w-2.5 h-2.5 text-gray-500 group-hover:text-gray-600 transition-colors duration-200"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 14l-7 7m0 0l-7-7m7 7V3"
+              />
+            </svg>
+          </div>
         </div>
       </button>
     </section>

@@ -51,7 +51,7 @@ export async function GET() {
         title: 'Advanced AI-Powered Skincare Solutions'
       },
       {
-        url: '/logos/Sawavo-black.png',
+        url: '/logos/sawavo-black.png',
         caption: 'Sawavo Logo',
         title: 'Sawavo Brand Logo'
       }

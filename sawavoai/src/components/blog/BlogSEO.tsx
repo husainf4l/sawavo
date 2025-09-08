@@ -56,7 +56,7 @@ export const BlogSEO = ({
         name: "Sawavo",
         logo: {
           "@type": "ImageObject",
-          url: `${baseUrl}/logos/Sawavo-logo-black.png`,
+          url: `${baseUrl}/logos/sawavo-black.png`,
           width: 200,
           height: 60,
         },
@@ -120,7 +120,7 @@ export const BlogSEO = ({
         name: "Sawavo",
         logo: {
           "@type": "ImageObject",
-          url: `${baseUrl}/logos/Sawavo-logo-black.png`,
+          url: `${baseUrl}/logos/sawavo-black.png`,
         },
       },
       blogPost: posts.slice(0, 10).map((post) => ({
